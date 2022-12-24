@@ -16,4 +16,4 @@
 *.jks
 *.apk
 app/src/development/google-services.json
-app/src/main/google-services.json
+app/src/production/google-services.json
