@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Hechim</string>
+    <string name="app_prod_name">Hechim</string>
+    <string name="app_dev_name">Hechim Dev</string>
 </resources>

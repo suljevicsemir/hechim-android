@@ -1,28 +1,94 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'com.google.gms.google-services'
 }
+
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+
+// Initialize a new Properties() object called keystoreProperties.
+def keystoreProperties = new Properties()
+
+// Load your keystore.properties file into the keystoreProperties object.
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
     namespace 'com.hechim'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.hechim"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        development {
+            storeFile file(keystoreProperties['devStoreFile'])
+            storePassword keystoreProperties['devStorePassword']
+            keyAlias keystoreProperties['devKeyAlias']
+            keyPassword keystoreProperties['devKeyPassword']
+        }
+        production {
+            storeFile file(keystoreProperties['prodStoreFile'])
+            storePassword keystoreProperties['prodStorePassword']
+            keyAlias keystoreProperties['prodKeyAlias']
+            keyPassword keystoreProperties['prodKeyPassword']
+        }
+
+    }
+
     buildTypes {
         release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    flavorDimensions "version"
+    productFlavors {
+        development {
+            dimension "version"
+            applicationId "com.hechim.dev"
+
+            manifestPlaceholders["appLabel"] = "@string/app_dev_name"
+            Properties properties = new Properties()
+            properties.load(project.rootProject.file('local.properties').newDataInputStream())
+            manifestPlaceholders["MAPS_API_KEY"] = "${properties.getProperty("MAPS_DEV_API_KEY")}"
+            
+            buildConfigField "String", "AUTOCOMPLETE_BASE_URL", '"https://maps.googleapis.com/maps/api/place/autocomplete/"'
+
+            def devApiKey = properties.getProperty("MAPS_DEV_API_KEY")
+            buildConfigField 'String', 'API_KEY', "\"$devApiKey\""
+            signingConfig signingConfigs.development
+        }
+        production {
+            dimension "version"
+            applicationId "com.hechim"
+
+            manifestPlaceholders["appLabel"] = "@string/app_prod_name"
+
+            Properties properties = new Properties()
+            properties.load(project.rootProject.file('local.properties').newDataInputStream())
+            manifestPlaceholders["MAPS_API_KEY"] = "${properties.getProperty("MAPS_PROD_API_KEY")}"
+
+            buildConfigField "String", "AUTOCOMPLETE_BASE_URL", '"https://maps.googleapis.com/maps/api/place/autocomplete/"'
+
+            def prodApiKey = properties.getProperty("MAPS_PROD_API_KEY")
+            buildConfigField 'String', 'API_KEY', "\"$prodApiKey\""
+
+        }
+    }
+
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -34,11 +100,18 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+
+    //firebase dependencies
+    //bom
+    implementation platform('com.google.firebase:firebase-bom:31.1.1')
+    //analytics
+    implementation 'com.google.firebase:firebase-analytics'
+
 }
