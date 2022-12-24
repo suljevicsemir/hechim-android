@@ -10,6 +10,7 @@
         android:label="${appLabel}"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:name=".BaseApplication"
         android:theme="@style/Theme.Hechim"
         tools:targetApi="31">
         <activity
