@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="test_one">Test in french</string>
+    <string name="hello_blank_fragment">Hello french</string>
+    <string name="register_email_hint">"Votre e-mail "</string>
+    <string name="register_password_hint">"Entrer le mot de passe "</string>
+    <string name="register_confirm_pass_hint">"Confirmez le mot de passe "</string>
+    <string name="register_sign_in">S\'identifier</string>
+    <string name="register_button">Continuer</string>
+    <string name="register_headline">"Créons votre compte ! "</string>
+    <string name="register_password_requirements">"Votre mot de passe doit contenir des lettres minuscules et majuscules, des chiffres, des caractères spéciaux et une longueur minimale de 8 caractères. "</string>
+    <string name="register_email_invalid">E-mail invalide!</string>
+    <string name="register_password_invalid">Mot de passe invalide!</string>
+    <string name="register_passwords_identical">" Les mots de passe ne correspondent pas !"</string>
+</resources>

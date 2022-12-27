@@ -1,6 +1,17 @@
 <resources>
-    <string name="app_prod_name">Hechim</string>
-    <string name="app_dev_name">Hechim Dev</string>
+    <string name="app_prod_name" translatable="false">Hechim</string>
+    <string name="app_dev_name" translatable="false">Hechim Dev</string>
+    <string name="test_one">Test in english</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="register_email_hint">Your email</string>
+    <string name="register_password_hint">Enter password</string>
+    <string name="register_confirm_pass_hint">Confirm password</string>
+    <string name="register_sign_in">Sign in</string>
+    <string name="register_button">Continue</string>
+    <string name="register_headline">Let´s get your account set up!</string>
+    <string name="register_password_requirements">Your password must contain lowercase and uppercase letter, number, special character and a minimum length of 8 characters.</string>
+    <string name="register_email_invalid">Email invalid!</string>
+    <string name="register_password_invalid">Password invalid!</string>
+    <string name="register_passwords_identical">Passwords don\'t match!</string>
 </resources>

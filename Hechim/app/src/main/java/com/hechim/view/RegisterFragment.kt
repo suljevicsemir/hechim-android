@@ -6,33 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.textfield.TextInputLayout
+import com.hechim.BuildConfig
+import com.hechim.R
 import com.hechim.databinding.FragmentRegisterBinding
 import com.hechim.utils.Extensions.animatedNavigate
+import com.hechim.utils.Extensions.errorResetListener
+import com.hechim.utils.Extensions.validateInput
+import com.hechim.utils.PasswordValidator
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [RegisterFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class RegisterFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     private lateinit var binding: FragmentRegisterBinding
+    private val passwordValidator = PasswordValidator()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,29 +27,91 @@ class RegisterFragment : Fragment() {
     ): View {
         binding = FragmentRegisterBinding.inflate(inflater, container, false)
 
-        binding.registerMessage.setOnClickListener {
-            findNavController().animatedNavigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
-        }
+        setHints()
+        attachInputListeners()
+        buttonListener()
+
         return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment RegisterFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            RegisterFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    //builds content for register page
+    @Suppress("KotlinConstantConditions")
+    private fun setHints() {
+
+        //hints for text fields
+        binding.registerEmailField.hint = getString(R.string.register_email_hint)
+        binding.registerPasswordField.hint = getString(R.string.register_password_hint)
+        binding.registerConfirmPasswordField.hint = getString(R.string.register_confirm_pass_hint)
+        //submit button
+        binding.registerContinueButton.title = getString(R.string.register_button)
+
+        //icons at the end of the field
+        binding.registerPasswordField.textInputLayout.endIconMode = TextInputLayout.END_ICON_PASSWORD_TOGGLE
+        binding.registerConfirmPasswordField.textInputLayout.endIconMode = TextInputLayout.END_ICON_PASSWORD_TOGGLE
+
+        //display different image depending on the build flavor
+        if(BuildConfig.FLAVOR == "development") {
+            binding.appLogo.setBackgroundResource(R.drawable.register_icon)
+        }
+        else {
+            binding.appLogo.setBackgroundResource(R.drawable.app_logo_prod)
+        }
+
     }
+
+    //validating input fields, sequentially
+    //if field is invalid, we don't check the ones after it
+    private fun validateInputs(): Boolean {
+        val emailValid = binding.registerEmailField.textInputLayout.validateInput(
+            isValid = {
+                passwordValidator.isValidEmail(it)
+            },
+            error = getString(R.string.register_email_invalid)
+        )
+        if(!emailValid) {
+            return false
+        }
+        val passwordValid = binding.registerPasswordField.textInputLayout.validateInput(
+            isValid = {
+                passwordValidator.isPasswordValid(it)
+            },
+            error = getString(R.string.register_password_invalid)
+        )
+        if(!passwordValid) {
+            return false
+        }
+        val confirmedPasswordValid = binding.registerConfirmPasswordField.textInputLayout.validateInput(
+            isValid = {
+                passwordValidator.isConfirmedPasswordValid(binding.registerPasswordField.editText.text.toString(), it)
+            },
+            error = getString(R.string.register_passwords_identical)
+        )
+        if(!confirmedPasswordValid) {
+            return false
+        }
+        return true
+    }
+
+    //validates input and begins registration flow
+    private fun buttonListener() {
+        binding.registerContinueButton.button.setOnClickListener {
+            if(!validateInputs()) {
+                return@setOnClickListener
+            }
+        }
+
+        binding.signInLabel.setOnClickListener {
+            findNavController().animatedNavigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
+        }
+    }
+
+    //error reset listeners, remove error labels when user starts typing again
+    private fun attachInputListeners() {
+        binding.registerEmailField.textInputLayout.errorResetListener()
+        binding.registerPasswordField.textInputLayout.errorResetListener()
+        binding.registerConfirmPasswordField.textInputLayout.errorResetListener()
+    }
+
+
+
 }

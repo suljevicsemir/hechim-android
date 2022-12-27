@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="test_one">Test in bosnian</string>
+    <string name="hello_blank_fragment" translatable="false">Hello bosniua</string>
+    <string name="register_email_hint">Vas email</string>
+    <string name="register_password_hint">Unesite sifru</string>
+    <string name="register_confirm_pass_hint">Ponovite sifru</string>
+    <string name="register_sign_in">Prijava</string>
+    <string name="register_button">Nastavi</string>
+    <string name="register_headline">Postavimo Vas profil!</string>
+    <string name="register_password_requirements">Lozinka mora imati malo slovo, velko slovo, broj, specijalni karakter i minimalne duzine 8.</string>
+    <string name="register_email_invalid">Neispravan format email</string>
+    <string name="register_password_invalid">Neispravna lozinka!</string>
+    <string name="register_passwords_identical">Lozinke nisu iste!</string>
+</resources>

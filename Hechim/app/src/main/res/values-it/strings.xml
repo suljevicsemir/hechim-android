@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="test_one">Test in Italian</string>
+    <string name="hello_blank_fragment">Hello italy</string>
+    <string name="register_email_hint">"La tua email "</string>
+    <string name="register_password_hint">"Inserire la password "</string>
+    <string name="register_confirm_pass_hint">"Conferma password "</string>
+    <string name="register_sign_in">Registrazione</string>
+    <string name="register_button">Continua</string>
+    <string name="register_headline">"Facciamo configurare il tuo account! "</string>
+    <string name="register_password_requirements">"La tua password deve contenere lettere minuscole e maiuscole, numeri, caratteri speciali e una lunghezza minima di 8 caratteri. "</string>
+    <string name="register_email_invalid">E-mail non valida!</string>
+    <string name="register_password_invalid">Password non valida!</string>
+    <string name="register_passwords_identical">" Le password non corrispondono!"</string>
+</resources>
