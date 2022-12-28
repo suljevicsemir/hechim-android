@@ -36,7 +36,7 @@
     </fragment>
     <fragment
         android:id="@+id/languageSelectionFragment"
-        android:name="com.hechim.LanguageSelectionFragment"
+        android:name="com.hechim.view.LanguageSelectionFragment"
         android:label="fragment_language_selection"
         tools:layout="@layout/fragment_language_selection" />
 </navigation>
