@@ -27,4 +27,10 @@
     <string name="onboarding_connecting_title">Connect with others</string>
     <string name="onboarding_connecting_desc">Connect with other Hechim users to share your progress, experiences and meet new people</string>
     <string name="onboarding_proceed">Let\'s go!</string>
+    <string name="language_selection_desc">Please select the language for the Hechim app user interface.</string>
+    <string name="app_language_fr">French</string>
+    <string name="app_language_en">English</string>
+    <string name="app_language_de">German</string>
+    <string name="app_language_it">Italian</string>
+    <string name="app_language_bs">Bosnian</string>
 </resources>

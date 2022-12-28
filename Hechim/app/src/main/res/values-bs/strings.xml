@@ -25,4 +25,10 @@
     <string name="onboarding_connecting_title">Povezite se s drugima</string>
     <string name="onboarding_connecting_desc">Povezite se s drugim korisnicima Hechim aplikacije da podijelite Vas napredak, iskustva i upoznajte nove ljude.</string>
     <string name="onboarding_proceed">Zapocnimo!</string>
+    <string name="language_selection_desc">Molimo odaberite preferirani jezik za Hechim aplikaciju.</string>
+    <string name="app_language_fr">Francuski</string>
+    <string name="app_language_en">Engleski</string>
+    <string name="app_language_de">Njemacki</string>
+    <string name="app_language_it">Talijanski</string>
+    <string name="app_language_bs">Bosanski</string>
 </resources>

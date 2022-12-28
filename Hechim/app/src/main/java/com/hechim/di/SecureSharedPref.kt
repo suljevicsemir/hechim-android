@@ -42,7 +42,7 @@ class SecureSharedPref(context: Context) {
         setBooleanValue(isLoggedInKey, true)
     }
 
-    private fun storeStringValue(key: String, value: String) {
+    fun storeStringValue(key: String, value: String) {
         val editor = sharedPref.edit()
         editor.putString(key, value)
         editor.apply()

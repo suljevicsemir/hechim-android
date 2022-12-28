@@ -6,17 +6,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.hechim.R
+import com.hechim.databinding.FragmentLanguageSelectionBinding
 
 
 class LanguageSelectionFragment : Fragment() {
 
+    private lateinit var binding: FragmentLanguageSelectionBinding
+    private var savedViewInstance: View? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_language_selection, container, false)
+    ): View {
+        if(savedViewInstance != null) {
+            return savedViewInstance as View
+        }
+        binding = FragmentLanguageSelectionBinding.inflate(inflater, container, false)
+        savedViewInstance = binding.root
+
+        return binding.root
     }
 
 
