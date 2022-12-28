@@ -1,6 +1,30 @@
 <resources>
-    <string name="app_prod_name">Hechim</string>
-    <string name="app_dev_name">Hechim Dev</string>
+    <string name="app_prod_name" translatable="false">Hechim</string>
+    <string name="app_dev_name" translatable="false">Hechim Dev</string>
+    <string name="test_one">Test in english</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="register_email_hint">Your email</string>
+    <string name="register_password_hint">Enter password</string>
+    <string name="register_confirm_pass_hint">Confirm password</string>
+    <string name="register_sign_in">Sign in</string>
+    <string name="register_button">Continue</string>
+    <string name="register_headline">Let´s get your account set up!</string>
+    <string name="register_password_requirements">Your password must contain lowercase and uppercase letter, number, special character and a minimum length of 8 characters.</string>
+    <string name="register_email_invalid">Email invalid!</string>
+    <string name="register_password_invalid">Password invalid!</string>
+    <string name="register_passwords_identical">Passwords don\'t match!</string>
+    <string name="login_sign_up">Sign up</string>
+    <string name="login_headline">Let\'s sign you in to Hechim app</string>
+    <string name="onboarding_top_bar">Onboarding</string>
+    <string name="onboarding_next_button">Next</string>
+    <string name="onboarding_meditating_title">Meditating</string>
+    <string name="onboarding_meditating_desc">Record all your meditations via external smart watch to get rid of the stress.</string>
+    <string name="onboarding_planning_title">Exercise planning</string>
+    <string name="onboarding_planning_desc">Plan your exercise in advance to keep yourself organized and remind yourself at all times.</string>
+    <string name="onboarding_recording_title">Exercise tracking</string>
+    <string name="onboarding_recording_desc">Record all your exercises to have weekly, monthly overview of your progress and more</string>
+    <string name="onboarding_connecting_title">Connect with others</string>
+    <string name="onboarding_connecting_desc">Connect with other Hechim users to share your progress, experiences and meet new people</string>
+    <string name="onboarding_proceed">Let\'s go!</string>
 </resources>
