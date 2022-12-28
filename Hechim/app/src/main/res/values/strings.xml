@@ -16,4 +16,15 @@
     <string name="register_passwords_identical">Passwords don\'t match!</string>
     <string name="login_sign_up">Sign up</string>
     <string name="login_headline">Let\'s sign you in to Hechim app</string>
+    <string name="onboarding_top_bar">Onboarding</string>
+    <string name="onboarding_next_button">Next</string>
+    <string name="onboarding_meditating_title">Meditating</string>
+    <string name="onboarding_meditating_desc">Record all your meditations via external smart watch to get rid of the stress.</string>
+    <string name="onboarding_planning_title">Exercise planning</string>
+    <string name="onboarding_planning_desc">Plan your exercise in advance to keep yourself organized and remind yourself at all times.</string>
+    <string name="onboarding_recording_title">Exercise tracking</string>
+    <string name="onboarding_recording_desc">Record all your exercises to have weekly, monthly overview of your progress and more</string>
+    <string name="onboarding_connecting_title">Connect with others</string>
+    <string name="onboarding_connecting_desc">Connect with other Hechim users to share your progress, experiences and meet new people</string>
+    <string name="onboarding_proceed">Let\'s go!</string>
 </resources>

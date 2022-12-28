@@ -14,4 +14,15 @@
     <string name="register_passwords_identical">Lozinke nisu iste!</string>
     <string name="login_sign_up">Registracija</string>
     <string name="login_headline">Ulogirajmo Vas u Hechim aplikaciju</string>
+    <string name="onboarding_top_bar">Prvi koraci</string>
+    <string name="onboarding_next_button">Dalje</string>
+    <string name="onboarding_meditating_title">Meditiranje</string>
+    <string name="onboarding_meditating_desc">Spasite Vase meditacije i oslobidite se stresa</string>
+    <string name="onboarding_planning_title">Planiranje treninga</string>
+    <string name="onboarding_planning_desc">Isplanirajte treninge da biste postigli sto bolju organizovanost, kao i podsjetnike na zakazani trening</string>
+    <string name="onboarding_recording_title">Pracenje treninga</string>
+    <string name="onboarding_recording_desc">Zabiljezite podatke o svojim treninzima i ostvarite sedmicni, mjesecni uvid u Vas napredak i jos mnogo toga.</string>
+    <string name="onboarding_connecting_title">Povezite se s drugima</string>
+    <string name="onboarding_connecting_desc">Povezite se s drugim korisnicima Hechim aplikacije da podijelite Vas napredak, iskustva i upoznajte nove ljude.</string>
+    <string name="onboarding_proceed">Zapocnimo!</string>
 </resources>

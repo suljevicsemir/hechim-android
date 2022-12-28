@@ -91,7 +91,7 @@ android {
 
             def prodApiKey = properties.getProperty("MAPS_PROD_API_KEY")
             buildConfigField 'String', 'API_KEY', "\"$prodApiKey\""
-
+            signingConfig signingConfigs.production
         }
     }
 
