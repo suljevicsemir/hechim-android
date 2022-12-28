@@ -6,62 +6,92 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.textfield.TextInputLayout
+import com.hechim.BuildConfig
 import com.hechim.R
 import com.hechim.databinding.FragmentLoginBinding
+import com.hechim.utils.Extensions.errorResetListener
+import com.hechim.utils.Extensions.validateInput
+import com.hechim.utils.PasswordValidator
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [LoginFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class LoginFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
-
     private lateinit var binding: FragmentLoginBinding
+
+    private val passwordValidator = PasswordValidator()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
-        binding.loginMessage.setOnClickListener {
-            findNavController().popBackStack()
-        }
+
+        buildContent()
+        buttonListener()
+        attachInputListeners()
+
         return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment LoginFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            LoginFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    //validating input fields, sequentially
+    //if field is invalid, we don't check the ones after it
+    private fun validateInputs(): Boolean {
+        val emailValid = binding.loginEmailField.textInputLayout.validateInput(
+            isValid = {
+                passwordValidator.isValidEmail(it)
+            },
+            error = getString(R.string.register_email_invalid)
+        )
+        if(!emailValid) {
+            return false
+        }
+        val passwordValid = binding.loginPasswordField.textInputLayout.validateInput(
+            isValid = {
+                passwordValidator.isPasswordValid(it)
+            },
+            error = getString(R.string.register_password_invalid)
+        )
+        return passwordValid
     }
+
+    @Suppress("KotlinConstantConditions")
+    private fun buildContent() {
+        //display different image depending on the build flavor
+        if(BuildConfig.FLAVOR == "development") {
+            binding.appLogo.setBackgroundResource(R.drawable.register_icon)
+        }
+        else {
+            binding.appLogo.setBackgroundResource(R.drawable.app_logo_prod)
+        }
+
+        //text fields hints
+        binding.loginEmailField.hint = getString(R.string.register_email_hint)
+        binding.loginPasswordField.hint = getString(R.string.register_password_hint)
+
+        //button title
+        binding.loginContinueButton.title = getString(R.string.register_button)
+
+        //password end icon
+        binding.loginPasswordField.textInputLayout.endIconMode = TextInputLayout.END_ICON_PASSWORD_TOGGLE
+    }
+
+    //validates input and begins registration flow
+    private fun buttonListener() {
+        binding.loginContinueButton.button.setOnClickListener {
+            if(!validateInputs()) {
+                return@setOnClickListener
+            }
+        }
+
+        binding.signUpLabel.setOnClickListener {
+            findNavController().popBackStack()
+        }
+    }
+
+    //error reset listeners, remove error labels when user starts typing again
+    private fun attachInputListeners() {
+        binding.loginEmailField.textInputLayout.errorResetListener()
+        binding.loginPasswordField.textInputLayout.errorResetListener()
+    }
+
 }

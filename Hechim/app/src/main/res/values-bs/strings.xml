@@ -12,4 +12,6 @@
     <string name="register_email_invalid">Neispravan format email</string>
     <string name="register_password_invalid">Neispravna lozinka!</string>
     <string name="register_passwords_identical">Lozinke nisu iste!</string>
+    <string name="login_sign_up">Registracija</string>
+    <string name="login_headline">Ulogirajmo Vas u Hechim aplikaciju</string>
 </resources>
