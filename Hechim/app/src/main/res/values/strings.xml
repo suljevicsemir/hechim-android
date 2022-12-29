@@ -37,4 +37,6 @@
     <string name="common_ok" translatable="false">Ok</string>
     <string name="common_no" translatable="false">No</string>
     <string name="langauge_selection_alert_title">Confirm language change</string>
+    <string name="language_selection_title">Language selection</string>
+    <string name="common_continue">Continue</string>
 </resources>

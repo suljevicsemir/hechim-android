@@ -33,4 +33,6 @@
     <string name="app_language_bs">Bosanski</string>
     <string name="language_selection_alert_content">Jeste li sigurni da zelite promijeniti jezik u</string>
     <string name="langauge_selection_alert_title">Potvrda promjene jezika</string>
+    <string name="language_selection_title">Odabir jezika</string>
+    <string name="common_continue">Dalje</string>
 </resources>

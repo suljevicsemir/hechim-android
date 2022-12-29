@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.hechim.R
@@ -16,6 +17,7 @@ import com.hechim.adapters.LanguageSelectionAdapter
 import com.hechim.databinding.FragmentLanguageSelectionBinding
 import com.hechim.models.local.AppLanguageItem
 import com.hechim.models.local.AppLocale
+import com.hechim.utils.Extensions.animatedNavigate
 import com.hechim.utils.Extensions.themeColor
 import com.hechim.view_models.LanguageSelectionViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -35,6 +37,14 @@ class LanguageSelectionFragment : Fragment() {
             return savedViewInstance as View
         }
         binding = FragmentLanguageSelectionBinding.inflate(inflater, container, false)
+        binding.languageSelectionTopBar.onBackPressed = {
+            findNavController().popBackStack()
+        }
+        binding.languageSelectionTopBar.title = getString(R.string.language_selection_title)
+        binding.continueButton.title = getString(R.string.common_continue)
+        binding.continueButton.button.setOnClickListener {
+            findNavController().animatedNavigate(LanguageSelectionFragmentDirections.actionLanguageSelectionFragmentToRegisterFragment())
+        }
         savedViewInstance = binding.root
 
         val adapter = LanguageSelectionAdapter(

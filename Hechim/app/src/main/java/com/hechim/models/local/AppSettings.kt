@@ -28,9 +28,9 @@ fun String?.toAppLocale() : AppLocale{
 
     return when(this) {
         "fr" -> AppLocale.French
-        "en" -> AppLocale.English
+        "bs" -> AppLocale.Bosnian
         "it" -> AppLocale.Italian
         "de" -> AppLocale.German
-        else -> AppLocale.Bosnian
+        else -> AppLocale.English
     }
 }

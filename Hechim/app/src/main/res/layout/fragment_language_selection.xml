@@ -6,6 +6,15 @@
     tools:context="view.LanguageSelectionFragment"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <include
+        android:id="@+id/languageSelectionTopBar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="8dp"
+        layout="@layout/app_toolbar"/>
+
 
     <TextView
         android:layout_width="match_parent"
@@ -16,19 +25,32 @@
         android:textColor="?colorOnPrimary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="20dp"
-        android:paddingBottom="10dp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:paddingVertical="10dp"
+        android:layout_marginHorizontal="20dp"
+        app:layout_constraintTop_toBottomOf="@id/languageSelectionTopBar"
         />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/languagesList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/langauge_selection_desc"
+        />
+
+    <include
+        android:id="@+id/continueButton"
+        layout="@layout/app_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintStart_toStartOf="parent"
         />
 
 
