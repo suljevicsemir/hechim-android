@@ -31,12 +31,16 @@
         android:label="fragment_on_boarding"
         tools:layout="@layout/fragment_on_boarding" >
         <action
-            android:id="@+id/action_onBoardingFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
+            android:id="@+id/action_onBoardingFragment_to_languageSelectionFragment"
+            app:destination="@id/languageSelectionFragment" />
     </fragment>
     <fragment
         android:id="@+id/languageSelectionFragment"
         android:name="com.hechim.view.LanguageSelectionFragment"
         android:label="fragment_language_selection"
-        tools:layout="@layout/fragment_language_selection" />
+        tools:layout="@layout/fragment_language_selection" >
+        <action
+            android:id="@+id/action_languageSelectionFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+    </fragment>
 </navigation>

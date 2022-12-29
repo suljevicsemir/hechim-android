@@ -1,7 +1,11 @@
 package com.hechim.utils
 
+import android.content.Context
+import android.util.TypedValue
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.annotation.AttrRes
+import androidx.annotation.ColorInt
 import androidx.core.widget.addTextChangedListener
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
@@ -68,4 +72,9 @@ object Extensions {
         }
 
     }
+
+    @ColorInt
+    fun Context.themeColor(@AttrRes attrRes: Int): Int = TypedValue()
+        .apply { theme.resolveAttribute (attrRes, this, true) }
+        .data
 }

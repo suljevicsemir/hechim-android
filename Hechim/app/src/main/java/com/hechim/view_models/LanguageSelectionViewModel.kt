@@ -40,7 +40,7 @@ object AppLanguages {
             locale = AppLocale.Italian,
         ),
         AppLanguageItem(
-            image = R.drawable.ic_language_it,
+            image = R.drawable.ic_language_bs,
             text = R.string.app_language_bs,
             locale = AppLocale.Bosnian,
         )

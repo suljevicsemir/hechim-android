@@ -10,6 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/button_shape"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="6dp"
         android:focusable="true"
         android:text="@{title}"
         android:shadowRadius="0"

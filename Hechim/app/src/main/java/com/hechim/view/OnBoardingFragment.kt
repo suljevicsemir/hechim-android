@@ -70,10 +70,10 @@ class OnBoardingFragment : Fragment() {
 
         val button = binding.onBoardingButton
         val recyclerView = binding.onboardingViewPager
-        button.setOnClickListener {
+        button.button.setOnClickListener {
 
             if(recyclerView.currentItem == 3) {
-                findNavController().animatedNavigate(OnBoardingFragmentDirections.actionOnBoardingFragmentToRegisterFragment())
+                findNavController().animatedNavigate(OnBoardingFragmentDirections.actionOnBoardingFragmentToLanguageSelectionFragment())
             }
             else {
                 recyclerView.currentItem = recyclerView.currentItem + 1
@@ -96,7 +96,7 @@ class OnBoardingFragment : Fragment() {
                 binding.onBoardingSecondIndicator.setBackgroundResource(R.drawable.on_boarding_default_dot)
                 binding.onBoardingThirdIndicator.setBackgroundResource(R.drawable.on_boarding_default_dot)
                 binding.onBoardingFourthIndicator.setBackgroundResource(R.drawable.on_boarding_default_dot)
-                binding.onBoardingButton.text = getString(R.string.onboarding_next_button)
+                binding.onBoardingButton.button.text = getString(R.string.onboarding_next_button)
             }
             1 -> {
                 binding.onBoardingFirstIndicator.setBackgroundResource(R.drawable.on_boarding_default_dot)
@@ -115,7 +115,7 @@ class OnBoardingFragment : Fragment() {
                 binding.onBoardingSecondIndicator.setBackgroundResource(R.drawable.on_boarding_default_dot)
                 binding.onBoardingThirdIndicator.setBackgroundResource(R.drawable.on_boarding_default_dot)
                 binding.onBoardingFourthIndicator.setBackgroundResource(R.drawable.on_boarding_selected_dot)
-                binding.onBoardingButton.text = getString(R.string.onboarding_proceed)
+                binding.onBoardingButton.button.text = getString(R.string.onboarding_proceed)
             }
         }
     }

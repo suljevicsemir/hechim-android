@@ -33,4 +33,8 @@
     <string name="app_language_de">German</string>
     <string name="app_language_it">Italian</string>
     <string name="app_language_bs">Bosnian</string>
+    <string name="language_selection_alert_content">Are you sure you want ot change the language to</string>
+    <string name="common_ok" translatable="false">Ok</string>
+    <string name="common_no" translatable="false">No</string>
+    <string name="langauge_selection_alert_title">Confirm language change</string>
 </resources>

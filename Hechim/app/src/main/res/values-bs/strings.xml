@@ -31,4 +31,6 @@
     <string name="app_language_de">Njemacki</string>
     <string name="app_language_it">Talijanski</string>
     <string name="app_language_bs">Bosanski</string>
+    <string name="language_selection_alert_content">Jeste li sigurni da zelite promijeniti jezik u</string>
+    <string name="langauge_selection_alert_title">Potvrda promjene jezika</string>
 </resources>
