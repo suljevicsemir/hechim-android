@@ -17,6 +17,8 @@
         <!-- Customize your theme here. -->
         <item name="android:fontFamily">@font/roboto</item>
 
+
+
     </style>
 
     <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
@@ -26,5 +28,15 @@
         <item name="boxStrokeWidthFocused">1dp</item>
         <item name="hintTextColor">#171819</item>
         <item name="android:textColorHint">#152D4A</item>
+    </style>
+
+    <style name="Base.AppTheme.notification.title" parent="TextAppearance.Compat.Notification.Title">
+        <item name="android:textColor"> @color/black_400</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="Base.AppTheme.notification.desc" parent="TextAppearance.Compat.Notification.Title">
+        <item name="android:textColor"> @color/black_400</item>
+        <item name="android:textSize">12sp</item>
     </style>
 </resources>
