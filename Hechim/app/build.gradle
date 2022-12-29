@@ -75,6 +75,10 @@ android {
 
             def devApiKey = properties.getProperty("MAPS_DEV_API_KEY")
             buildConfigField 'String', 'API_KEY', "\"$devApiKey\""
+
+            versionCode 1
+            versionName "0.0.1-demo"
+
             signingConfig signingConfigs.development
         }
         production {
