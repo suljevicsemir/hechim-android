@@ -20,6 +20,7 @@ import androidx.core.view.ViewCompat
 import com.hechim.databinding.ActivityMainBinding
 import com.hechim.di.SecureSharedPref
 import com.hechim.models.local.AppLocale
+import com.hechim.services.TestForeground
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import javax.inject.Inject
@@ -62,22 +63,32 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
+
         supportActionBar?.hide();
 
         createNotification()
-        showNotification()
 
+
+    }
+
+
+
+
+    private fun stopServiceMy(intent: Intent) {
+        stopService(intent)
     }
 
     private fun createNotification() {
         val name = "RideArrival"
         val descriptionText = "Channel for Ride Arriving"
-        val importance = NotificationManager.IMPORTANCE_HIGH
+        val importance = NotificationManager.IMPORTANCE_MIN
         val channel = NotificationChannel("RideArrival", name, importance).apply {
             description = descriptionText
         }
         val notificationManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
         notificationManager.createNotificationChannel(channel)
     }
 

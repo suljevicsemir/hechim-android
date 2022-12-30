@@ -1,11 +1,17 @@
 package com.hechim.view
 
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.size
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
@@ -13,7 +19,9 @@ import com.hechim.R
 import com.hechim.adapters.OnBoardingAdapter
 import com.hechim.databinding.FragmentOnBoardingBinding
 import com.hechim.models.local.OnBoardingItem
+import com.hechim.services.TestForeground
 import com.hechim.utils.Extensions.animatedNavigate
+import com.vmadalin.easypermissions.dialogs.SettingsDialog
 
 
 class OnBoardingFragment : Fragment() {
@@ -59,11 +67,21 @@ class OnBoardingFragment : Fragment() {
         val adapter = OnBoardingAdapter(list)
         recyclerView.adapter = adapter
 
+        binding.serviceButton.button.setOnClickListener {
+            startService()
+        }
+
         buttonListener()
         setIndicatorInitialBackground()
         registerPageListener(adapter)
         return binding.root
 
+    }
+
+    private fun startService() {
+        val serviceIntent = Intent(requireContext(), TestForeground::class.java)
+        println("starting service")
+        requireContext().startService(serviceIntent)
     }
 
     private fun buttonListener() {
@@ -135,6 +153,44 @@ class OnBoardingFragment : Fragment() {
             }
 
         })
+    }
+
+    private fun requestPermission() {
+        when {
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED -> {
+                startService()
+            }
+            ActivityCompat.shouldShowRequestPermissionRationale(
+                requireActivity(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) -> {
+                SettingsDialog.Builder(requireActivity()).build().show()
+            }
+            else -> {
+                //permission has not been asked yet
+                requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+            }
+        }
+    }
+
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) {
+        if(it) {
+            startService()
+        }
+        else {
+
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        requestPermission()
+
     }
 
 
