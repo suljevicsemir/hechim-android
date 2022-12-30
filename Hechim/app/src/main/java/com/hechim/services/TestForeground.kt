@@ -28,17 +28,17 @@ class TestForeground: Service() {
         val notificationIntent = Intent(this, MainActivity::class.java)
 
         val builder = NotificationCompat.Builder(this, "RideArrival")
-            
+            .setSmallIcon(R.drawable.ic_notification)
             .setStyle(androidx.media.app.NotificationCompat.MediaStyle().setShowActionsInCompactView(0, 1))
             .addAction(R.drawable.ic_not_started, "s", null)
             .addAction(R.drawable.ic_pause, "s", null)
             .setContentText("Notification description")
             .setContentTitle("Notification title")
-
+            .setColor(ContextCompat.getColor(this, R.color.orange_400))
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setContentIntent(PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE))
 
-        println("service started")
+
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
