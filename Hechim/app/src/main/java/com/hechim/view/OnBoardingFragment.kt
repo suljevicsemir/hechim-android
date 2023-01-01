@@ -1,8 +1,11 @@
 package com.hechim.view
 
 import android.Manifest
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,6 +15,7 @@ import android.widget.LinearLayout
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.getSystemService
 import androidx.core.view.size
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
@@ -28,6 +32,8 @@ class OnBoardingFragment : Fragment() {
 
     private lateinit var binding: FragmentOnBoardingBinding
     private var savedViewInstance: View? = null
+
+    var permissions: MutableMap<String, Boolean> = mutableMapOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,6 +70,41 @@ class OnBoardingFragment : Fragment() {
                 image = R.drawable.onboarding_connecting
             ),
         )
+
+        permissions[Manifest.permission.ACCESS_FINE_LOCATION] = permissionGranted(Manifest.permission.ACCESS_FINE_LOCATION)
+        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {
+            permissions[Manifest.permission.ACTIVITY_RECOGNITION] = permissionGranted(Manifest.permission.ACTIVITY_RECOGNITION)
+        }
+        else {
+            permissions[Manifest.permission.ACTIVITY_RECOGNITION] = true
+        }
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+            permissions[Manifest.permission.POST_NOTIFICATIONS] = true
+        }
+        else {
+            permissions[Manifest.permission.POST_NOTIFICATIONS] = permissionGranted(Manifest.permission.POST_NOTIFICATIONS)
+        }
+
+
+        notificationsLauncher.launch(permissions.keys.toTypedArray())
+
+
+
+
+
+
+        if(permissionGranted(Manifest.permission.ACCESS_FINE_LOCATION) && permissionGranted(Manifest.permission.ACTIVITY_RECOGNITION)) {
+            if(Build.VERSION.SDK_INT < 33) {
+                startService()
+            }
+            else if(permissionGranted(Manifest.permission.POST_NOTIFICATIONS)) {
+                startService()
+            }
+            println("Poziva se kreiranje servisa")
+
+        }
+
+
         val adapter = OnBoardingAdapter(list)
         recyclerView.adapter = adapter
 
@@ -80,7 +121,8 @@ class OnBoardingFragment : Fragment() {
 
     private fun startService() {
         val serviceIntent = Intent(requireContext(), TestForeground::class.java)
-        println("starting service")
+        serviceIntent.action = "START"
+
         requireContext().startService(serviceIntent)
     }
 
@@ -161,28 +203,99 @@ class OnBoardingFragment : Fragment() {
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED -> {
-                startService()
+                checkActivity()
             }
             ActivityCompat.shouldShowRequestPermissionRationale(
                 requireActivity(),
-                Manifest.permission.ACCESS_FINE_LOCATION
+                Manifest.permission.ACCESS_FINE_LOCATION,
             ) -> {
                 SettingsDialog.Builder(requireActivity()).build().show()
             }
             else -> {
                 //permission has not been asked yet
-                requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
             }
         }
+    }
+
+    private val notificationsLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()
+        ) { isGranted: Map<String, Boolean> ->
+
+            val anyRejected = isGranted.any {
+                !it.value
+            }
+
+            if(!anyRejected) {
+                startService()
+            }
+
+        }
+
+    private fun checkActivity() {
+        if(Build.VERSION.SDK_INT < 29) {
+            return
+        }
+        when {
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACTIVITY_RECOGNITION
+            ) == PackageManager.PERMISSION_GRANTED -> {
+
+            }
+            ActivityCompat.shouldShowRequestPermissionRationale(
+                requireActivity(),
+                Manifest.permission.ACTIVITY_RECOGNITION,
+
+                ) -> {
+                SettingsDialog.Builder(requireActivity()).build().show()
+            }
+            else -> {
+                //permission has not been asked yet
+                requestPermissionLauncher.launch(Manifest.permission.ACTIVITY_RECOGNITION)
+            }
+        }
+    }
+
+    private fun checkNotification() {
+        if(Build.VERSION.SDK_INT < 33) {
+            return
+        }
+        when {
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.POST_NOTIFICATIONS
+            ) == PackageManager.PERMISSION_GRANTED -> {
+                startService()
+            }
+            ActivityCompat.shouldShowRequestPermissionRationale(
+                requireActivity(),
+                Manifest.permission.POST_NOTIFICATIONS,
+
+                ) -> {
+                SettingsDialog.Builder(requireActivity()).build().show()
+            }
+            else -> {
+                //permission has not been asked yet
+                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            }
+        }
+    }
+
+    private fun permissionGranted(permission: String):Boolean {
+        return ContextCompat.checkSelfPermission(requireContext(), permission) == PackageManager.PERMISSION_GRANTED
     }
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) {
-        if(it) {
-            startService()
-        }
-        else {
+        if(permissionGranted(Manifest.permission.ACCESS_FINE_LOCATION) && permissionGranted(Manifest.permission.ACTIVITY_RECOGNITION)) {
+            if(Build.VERSION.SDK_INT < 33) {
+                startService()
+            }
+            else if(permissionGranted(Manifest.permission.POST_NOTIFICATIONS)) {
+                startService()
+            }
 
         }
     }
