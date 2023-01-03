@@ -174,7 +174,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
 
 
-    //Nofitifcation style action buttons
+    //Notification style action buttons
     implementation "androidx.media:media:1.6.0"
 
     //Room
