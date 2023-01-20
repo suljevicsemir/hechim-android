@@ -30,6 +30,11 @@
         <item name="android:textColorHint">#152D4A</item>
     </style>
 
+    <style name="roundedImageViewRounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
     <style name="Base.AppTheme.notification.title" parent="TextAppearance.Compat.Notification.Title">
         <item name="android:textColor"> @color/black_400</item>
         <item name="android:textSize">24sp</item>

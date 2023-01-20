@@ -39,4 +39,17 @@
     <string name="langauge_selection_alert_title">Confirm language change</string>
     <string name="language_selection_title">Language selection</string>
     <string name="common_continue">Continue</string>
+    <string name="permissions_info_headline">This app needs several permissions to provide you with it\'s core functionality. You can revoke given permissions at anytime from phone\'s settings.</string>
+    <string name="permission_location_title">Location</string>
+    <string name="permission_location_description">We need your location permission to display your location on the map and track your activity when the app is opened.</string>
+    <string name="permission_background_location_title">Background location</string>
+    <string name="permission_background_location_desc">To enable tracking in the background (of your workouts), when the app is not opened and the device is locked for longer periods of time we need access to your background location.</string>
+    <string name="permission_notification_title">Notifications</string>
+    <string name="permission_notification_description">To notify your about your ongoing activity (length, duration, step numbers etc) from notifications, receive notifications about your reports, our latest offers and share your acitivities with other we need your notification permission.</string>
+    <string name="permission_activity_title">Activity recognition</string>
+    <string name="permission_activity_description">To provide you with step counter functionality, we need your access to your activity recognition.</string>
+    <string name="permissions_skip">Skip</string>
+    <string name="permissions_button_allow">Allow</string>
+    <string name="permission_dialog_title">Grant access to %1$s permission</string>
+    <string name="permission_dialog_open_settings">Open settings</string>
 </resources>

@@ -5,8 +5,11 @@ import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.PowerManager
+import android.provider.Settings
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -71,46 +74,48 @@ class OnBoardingFragment : Fragment() {
             ),
         )
 
-        permissions[Manifest.permission.ACCESS_FINE_LOCATION] = permissionGranted(Manifest.permission.ACCESS_FINE_LOCATION)
-        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {
-            permissions[Manifest.permission.ACTIVITY_RECOGNITION] = permissionGranted(Manifest.permission.ACTIVITY_RECOGNITION)
-        }
-        else {
-            permissions[Manifest.permission.ACTIVITY_RECOGNITION] = true
-        }
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-            permissions[Manifest.permission.POST_NOTIFICATIONS] = true
-        }
-        else {
-            permissions[Manifest.permission.POST_NOTIFICATIONS] = permissionGranted(Manifest.permission.POST_NOTIFICATIONS)
-        }
+
+        Build.VERSION.SDK_INT
+
+//        //permissions[Manifest.permission.ACCESS_FINE_LOCATION] = permissionGranted(Manifest.permission.ACCESS_FINE_LOCATION)
+//        //permissions[Manifest.permission.ACCESS_BACKGROUND_LOCATION] = permissionGranted(Manifest.permission.ACCESS_BACKGROUND_LOCATION)
+//        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {
+//            permissions[Manifest.permission.ACTIVITY_RECOGNITION] = permissionGranted(Manifest.permission.ACTIVITY_RECOGNITION)
+//        }
+//        else {
+//            permissions[Manifest.permission.ACTIVITY_RECOGNITION] = true
+//        }
+//        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+//            permissions[Manifest.permission.POST_NOTIFICATIONS] = true
+//        }
+//        else {
+//            permissions[Manifest.permission.POST_NOTIFICATIONS] = permissionGranted(Manifest.permission.POST_NOTIFICATIONS)
+//        }
+//
+//
+//        notificationsLauncher.launch(permissions.keys.toTypedArray())
 
 
-        notificationsLauncher.launch(permissions.keys.toTypedArray())
 
 
 
 
-
-
-        if(permissionGranted(Manifest.permission.ACCESS_FINE_LOCATION) && permissionGranted(Manifest.permission.ACTIVITY_RECOGNITION)) {
-            if(Build.VERSION.SDK_INT < 33) {
-                startService()
-            }
-            else if(permissionGranted(Manifest.permission.POST_NOTIFICATIONS)) {
-                startService()
-            }
-            println("Poziva se kreiranje servisa")
-
-        }
+//        if(permissionGranted(Manifest.permission.ACCESS_FINE_LOCATION) && permissionGranted(Manifest.permission.ACTIVITY_RECOGNITION)) {
+//            if(Build.VERSION.SDK_INT < 33) {
+//                startService()
+//            }
+//            else if(permissionGranted(Manifest.permission.POST_NOTIFICATIONS)) {
+//                startService()
+//            }
+//            println("Poziva se kreiranje servisa")
+//
+//        }
 
 
         val adapter = OnBoardingAdapter(list)
         recyclerView.adapter = adapter
 
-        binding.serviceButton.button.setOnClickListener {
-            startService()
-        }
+
 
         buttonListener()
         setIndicatorInitialBackground()

@@ -3,6 +3,7 @@ package com.hechim.di
 import android.content.Context
 import com.hechim.models.NavigationRepository
 import com.hechim.utils.PasswordValidator
+import com.hechim.view_models.PermissionsViewModel
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,6 +20,12 @@ object AppModule {
     fun provideSecureSharedPref(
         @ApplicationContext context: Context
     ) = SecureSharedPref(context = context)
+
+    @Singleton
+    @Provides
+    fun providePermissionsViewModel(
+        @ApplicationContext context: Context
+    ) = PermissionsViewModel(context)
 
     @Singleton
     @Provides

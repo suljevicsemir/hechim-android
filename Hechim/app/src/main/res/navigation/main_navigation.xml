@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/onBoardingFragment">
+    app:startDestination="@id/permissionsFragment">
 
     <fragment
         android:id="@+id/loginFragment"
@@ -43,4 +43,9 @@
             android:id="@+id/action_languageSelectionFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/permissionsFragment"
+        android:name="com.hechim.view.PermissionsFragment"
+        android:label="fragment_permissions"
+        tools:layout="@layout/fragment_permissions" />
 </navigation>

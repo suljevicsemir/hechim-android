@@ -9,15 +9,15 @@
     android:layout_height="match_parent"
     >
 
-    <include
-        android:id="@+id/serviceButton"
-        layout="@layout/app_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="100dp"/>
+<!--    <include-->
+<!--        android:id="@+id/serviceButton"-->
+<!--        layout="@layout/app_button"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        android:layout_marginBottom="100dp"/>-->
 
     <TextView
         android:id="@+id/onboarding_headline"

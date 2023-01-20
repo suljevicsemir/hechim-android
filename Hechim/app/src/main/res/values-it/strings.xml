@@ -12,4 +12,5 @@
     <string name="register_email_invalid">E-mail non valida!</string>
     <string name="register_password_invalid">Password non valida!</string>
     <string name="register_passwords_identical">" Le password non corrispondono!"</string>
+    <string name="permissions_info_headline">"Questa app necessita di diverse autorizzazioni per fornirti le sue funzionalità principali. Puoi revocare le autorizzazioni fornite in qualsiasi momento dalle impostazioni del telefono. "</string>
 </resources>

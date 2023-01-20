@@ -35,4 +35,8 @@
     <string name="langauge_selection_alert_title">Potvrda promjene jezika</string>
     <string name="language_selection_title">Odabir jezika</string>
     <string name="common_continue">Dalje</string>
+    <string name="permissions_info_headline">Potrebno nam je nekoliko permisija da bi smo Vam omogucili glavne funkcionalnosti aplikacije. Mozete ponovo zabraniti permisije u bilo kojem trenutku kroz postavke telefona (Settings / Postavke aplikacija).</string>
+    <string name="permission_location_title">Lokacija</string>
+    <string name="permissions_skip">Preskoci</string>
+    <string name="permissions_button_allow">Dozvoli</string>
 </resources>
