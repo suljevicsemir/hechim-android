@@ -1,7 +1,7 @@
 package com.hechim.di
 
 import android.content.Context
-import com.hechim.models.NavigationRepository
+import com.hechim.models.repo.NavigationRepository
 import com.hechim.utils.PasswordValidator
 import com.hechim.view_models.PermissionsViewModel
 import dagger.Module

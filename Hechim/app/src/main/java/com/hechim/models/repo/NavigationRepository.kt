@@ -1,4 +1,4 @@
-package com.hechim.models
+package com.hechim.models.repo
 
 import android.content.Context
 import androidx.navigation.NavController
@@ -9,31 +9,34 @@ import dagger.hilt.android.scopes.ActivityRetainedScoped
 @ActivityRetainedScoped
 class NavigationRepository(val context: Context) {
 
-
     private var mainNavController: NavController? = null
 
+    /**
+     * sets navigation controller to be used throughout
+     * app via dependency injection
+     * can be injected in ViewModels, other repos
+     * most importantly, in http interceptor
+     */
     fun setController(navController: NavController) {
         mainNavController = navController
-        println("SETTING MAIN NAV CONTROLLER")
-        if(mainNavController != null) {
-            println("MAIN NAV CONTROLLER NOT NULL")
-        }
-        else {
-            println("MAIN NAV CONTROLLER IS NULL")
-        }
     }
 
+    /**
+     * navigate for a given route
+     */
     fun navigate(route: String) {
+        if(mainNavController == null) {
+            return
+        }
         mainNavController!!.navigate(route = route)
     }
 
+    /**
+     * navigates to given route and removes
+     * all other routes from the back stack
+     * used in cases like logout, finishing on boarding
+     */
     fun navigateAndRemove(route: Int) {
-//        mainNavController!!.navigate(route) {
-//            popUpTo(mainNavController!!.graph.findStartDestination().id) {
-//                inclusive = true
-//            }
-//        }
-
         mainNavController!!.navigate(
             route,
             args = null,

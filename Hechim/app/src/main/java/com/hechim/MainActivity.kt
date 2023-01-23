@@ -23,6 +23,7 @@ import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
 import com.hechim.databinding.ActivityMainBinding
 import com.hechim.di.SecureSharedPref
 import com.hechim.models.local.AppLocale
+import com.hechim.models.repo.NavigationRepository
 import com.hechim.services.TestForeground
 import com.hechim.utils.Extensions.animatedNavigate
 import com.hechim.view.OnBoardingFragmentDirections
@@ -36,6 +37,9 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var injectedSharedPref: SecureSharedPref
+
+    @Inject
+    lateinit var navigationRepository: NavigationRepository
 
     override fun attachBaseContext(newBase: Context?) {
         val secureSharedPref = SecureSharedPref(newBase!!)
@@ -57,6 +61,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityMainBinding
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -70,6 +79,10 @@ class MainActivity : AppCompatActivity() {
         createNotification()
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        val navController = navHostFragment.navController
+        navigationRepository.setController(navController)
+
+
 
 
 

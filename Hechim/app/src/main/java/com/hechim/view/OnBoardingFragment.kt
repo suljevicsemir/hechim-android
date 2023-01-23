@@ -20,6 +20,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
 import androidx.core.view.size
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.hechim.R
@@ -36,16 +37,13 @@ class OnBoardingFragment : Fragment() {
     private lateinit var binding: FragmentOnBoardingBinding
     private var savedViewInstance: View? = null
 
-    var permissions: MutableMap<String, Boolean> = mutableMapOf()
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        if(savedViewInstance != null) {
+        if(savedViewInstance != null){
             return savedViewInstance as View
         }
-
 
         binding = FragmentOnBoardingBinding.inflate(inflater, container, false)
         savedViewInstance = binding.root
@@ -74,52 +72,14 @@ class OnBoardingFragment : Fragment() {
             ),
         )
 
-
-        Build.VERSION.SDK_INT
-
-//        //permissions[Manifest.permission.ACCESS_FINE_LOCATION] = permissionGranted(Manifest.permission.ACCESS_FINE_LOCATION)
-//        //permissions[Manifest.permission.ACCESS_BACKGROUND_LOCATION] = permissionGranted(Manifest.permission.ACCESS_BACKGROUND_LOCATION)
-//        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {
-//            permissions[Manifest.permission.ACTIVITY_RECOGNITION] = permissionGranted(Manifest.permission.ACTIVITY_RECOGNITION)
-//        }
-//        else {
-//            permissions[Manifest.permission.ACTIVITY_RECOGNITION] = true
-//        }
-//        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-//            permissions[Manifest.permission.POST_NOTIFICATIONS] = true
-//        }
-//        else {
-//            permissions[Manifest.permission.POST_NOTIFICATIONS] = permissionGranted(Manifest.permission.POST_NOTIFICATIONS)
-//        }
-//
-//
-//        notificationsLauncher.launch(permissions.keys.toTypedArray())
-
-
-
-
-
-
-//        if(permissionGranted(Manifest.permission.ACCESS_FINE_LOCATION) && permissionGranted(Manifest.permission.ACTIVITY_RECOGNITION)) {
-//            if(Build.VERSION.SDK_INT < 33) {
-//                startService()
-//            }
-//            else if(permissionGranted(Manifest.permission.POST_NOTIFICATIONS)) {
-//                startService()
-//            }
-//            println("Poziva se kreiranje servisa")
-//
-//        }
-
-
         val adapter = OnBoardingAdapter(list)
         recyclerView.adapter = adapter
-
 
 
         buttonListener()
         setIndicatorInitialBackground()
         registerPageListener(adapter)
+
         return binding.root
 
     }
@@ -135,8 +95,7 @@ class OnBoardingFragment : Fragment() {
 
         val button = binding.onBoardingButton
         val recyclerView = binding.onboardingViewPager
-        button.button.setOnClickListener {
-
+        binding.onBoardingButton.button.setOnClickListener {
             if(recyclerView.currentItem == 3) {
                 findNavController().animatedNavigate(OnBoardingFragmentDirections.actionOnBoardingFragmentToLanguageSelectionFragment())
             }
@@ -147,6 +106,7 @@ class OnBoardingFragment : Fragment() {
     }
 
     private fun setIndicatorInitialBackground(){
+        println("setting initial background")
         binding.onBoardingFirstIndicator.setBackgroundResource(R.drawable.on_boarding_selected_dot)
         binding.onBoardingSecondIndicator.setBackgroundResource(R.drawable.on_boarding_default_dot)
         binding.onBoardingThirdIndicator.setBackgroundResource(R.drawable.on_boarding_default_dot)
@@ -168,12 +128,14 @@ class OnBoardingFragment : Fragment() {
                 binding.onBoardingSecondIndicator.setBackgroundResource(R.drawable.on_boarding_selected_dot)
                 binding.onBoardingThirdIndicator.setBackgroundResource(R.drawable.on_boarding_default_dot)
                 binding.onBoardingFourthIndicator.setBackgroundResource(R.drawable.on_boarding_default_dot)
+                binding.onBoardingButton.button.text = getString(R.string.onboarding_next_button)
             }
             2 -> {
                 binding.onBoardingFirstIndicator.setBackgroundResource(R.drawable.on_boarding_default_dot)
                 binding.onBoardingSecondIndicator.setBackgroundResource(R.drawable.on_boarding_default_dot)
                 binding.onBoardingThirdIndicator.setBackgroundResource(R.drawable.on_boarding_selected_dot)
                 binding.onBoardingFourthIndicator.setBackgroundResource(R.drawable.on_boarding_default_dot)
+                binding.onBoardingButton.button.text = getString(R.string.onboarding_next_button)
             }
             else -> {
                 binding.onBoardingFirstIndicator.setBackgroundResource(R.drawable.on_boarding_default_dot)
@@ -186,7 +148,6 @@ class OnBoardingFragment : Fragment() {
     }
 
     private fun registerPageListener(adapter: OnBoardingAdapter) {
-
         binding.onboardingViewPager.registerOnPageChangeCallback( object: ViewPager2.OnPageChangeCallback() {
             override fun onPageScrolled(
                 position: Int,
@@ -194,11 +155,8 @@ class OnBoardingFragment : Fragment() {
                 positionOffsetPixels: Int
             ) {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-
                 updateIndicators(position)
-
             }
-
         })
     }
 
