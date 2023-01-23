@@ -17,10 +17,16 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.view.ViewCompat
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
 import com.hechim.databinding.ActivityMainBinding
 import com.hechim.di.SecureSharedPref
 import com.hechim.models.local.AppLocale
 import com.hechim.services.TestForeground
+import com.hechim.utils.Extensions.animatedNavigate
+import com.hechim.view.OnBoardingFragmentDirections
+import com.hechim.view.RegisterFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import javax.inject.Inject
@@ -41,9 +47,7 @@ class MainActivity : AppCompatActivity() {
         val language: String = lang ?: AppLocale.English.locale
         val locale = Locale(language)
         Locale.setDefault(locale)
-        return if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N) {
-            updateResourcesLocale(context, locale)
-        } else updateResourcesLocaleLegacy(context, locale)
+        return updateResourcesLocale(context, locale)
     }
 
     private fun updateResourcesLocale(context: Context, locale: Locale): Context? {
@@ -52,29 +56,72 @@ class MainActivity : AppCompatActivity() {
         return context.createConfigurationContext(configuration)
     }
 
-    private fun updateResourcesLocaleLegacy(context: Context, locale: Locale): Context {
-        val resources = context.resources
-        val configuration = resources.configuration
-        configuration.locale = locale
-        resources.updateConfiguration(configuration, resources.displayMetrics)
-        return context
-    }
-
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
+
         setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
 
         supportActionBar?.hide();
 
         createNotification()
 
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+
+
+
+        FirebaseDynamicLinks.getInstance().getDynamicLink(intent).addOnSuccessListener {
+            if(it != null) {
+                val uri = it.link
+                if(uri != null) {
+
+                    val s = uri.getQueryParameter("curPage")
+                    val code = uri.getQueryParameter("code")!!.toInt()
+                    val email = uri.getQueryParameter("email")!!.toString()
+                    navHostFragment.navController.animatedNavigate(
+                        OnBoardingFragmentDirections.actionOnBoardingFragmentToCodeFragment(
+                            code = code,
+                            email = email
+                        )
+                    )
+                }
+            }
+        }
+
 
     }
 
 
-
+//    override fun onNewIntent(intent: Intent?) {
+//        super.onNewIntent(intent)
+//        if(intent != null) {
+//            println("on new intent is not null")
+//            val uri = intent.data
+//            if(uri != null) {
+//                println("uri is not null")
+//                val code = uri.getQueryParameter("code")!!.toInt()
+//                val email = uri.getQueryParameter("email")!!.toString()
+//                val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+//                navHostFragment.navController.animatedNavigate(
+//                    OnBoardingFragmentDirections.actionOnBoardingFragmentToCodeFragment(
+//                        code = code,
+//                        email = email
+//                    )
+//                )
+//
+//
+//            }
+//            else {
+//                println("uri is null")
+//            }
+//        }
+//        else {
+//            println("on new intent is null")
+//        }
+//    }
 
     private fun stopServiceMy(intent: Intent) {
         stopService(intent)

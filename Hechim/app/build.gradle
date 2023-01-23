@@ -69,15 +69,15 @@ android {
             Properties properties = new Properties()
             properties.load(project.rootProject.file('local.properties').newDataInputStream())
             manifestPlaceholders["MAPS_API_KEY"] = "${properties.getProperty("MAPS_DEV_API_KEY")}"
-            
+            manifestPlaceholders["intentFilterHost"] = "hechimdevelopment"
             buildConfigField "String", "AUTOCOMPLETE_BASE_URL", '"https://maps.googleapis.com/maps/api/place/autocomplete/"'
 
 
             def devApiKey = properties.getProperty("MAPS_DEV_API_KEY")
             buildConfigField 'String', 'API_KEY', "\"$devApiKey\""
 
-            versionCode 3
-            versionName "0.0.1-demo3"
+            versionCode 4
+            versionName "0.0.1-demo4"
 
             signingConfig signingConfigs.development
         }
@@ -129,7 +129,10 @@ dependencies {
     //bom
     implementation platform('com.google.firebase:firebase-bom:31.1.1')
     //analytics
-    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-analytics-ktx:21.2.0'
+    implementation 'com.google.firebase:firebase-core:21.1.1'
+    implementation 'com.google.firebase:firebase-dynamic-links-ktx:21.1.0'
+
 
     //Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'

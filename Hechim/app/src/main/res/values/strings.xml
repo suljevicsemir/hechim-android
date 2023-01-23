@@ -52,4 +52,7 @@
     <string name="permissions_button_allow">Allow</string>
     <string name="permission_dialog_title">Grant access to %1$s permission</string>
     <string name="permission_dialog_open_settings">Open settings</string>
+    <string name="register_code_title">Register code</string>
+    <string name="register_code_subtitle">Enter the code you\'ve received or click the link in your email.</string>
+    <string name="register_code_hint">Your code</string>
 </resources>

@@ -39,4 +39,7 @@
     <string name="permission_location_title">Lokacija</string>
     <string name="permissions_skip">Preskoci</string>
     <string name="permissions_button_allow">Dozvoli</string>
+    <string name="register_code_title">Registracioni kod</string>
+    <string name="register_code_subtitle">Unesite kod koji smo Vam poslali ili kliknite na dugme u mailu koji ste dobili.</string>
+    <string name="register_code_hint">Unesite kod ovdje</string>
 </resources>

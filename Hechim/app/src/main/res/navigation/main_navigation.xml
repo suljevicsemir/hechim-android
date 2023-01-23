@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/permissionsFragment">
+    app:startDestination="@id/onBoardingFragment">
 
     <fragment
         android:id="@+id/loginFragment"
@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_registerFragment_to_codeFragment"
+            app:destination="@id/codeFragment" />
     </fragment>
     <fragment
         android:id="@+id/onBoardingFragment"
@@ -33,6 +36,9 @@
         <action
             android:id="@+id/action_onBoardingFragment_to_languageSelectionFragment"
             app:destination="@id/languageSelectionFragment" />
+        <action
+            android:id="@+id/action_onBoardingFragment_to_codeFragment"
+            app:destination="@id/codeFragment" />
     </fragment>
     <fragment
         android:id="@+id/languageSelectionFragment"
@@ -48,4 +54,19 @@
         android:name="com.hechim.view.PermissionsFragment"
         android:label="fragment_permissions"
         tools:layout="@layout/fragment_permissions" />
+    <fragment
+        android:id="@+id/codeFragment"
+        android:name="com.hechim.CodeFragment"
+        android:label="fragment_code"
+        tools:layout="@layout/fragment_code">
+        <argument
+            android:name="code"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="email"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 </navigation>
