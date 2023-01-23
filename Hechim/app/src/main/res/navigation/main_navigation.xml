@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/onBoardingFragment">
+
+    app:startDestination="@id/tempHomeFragment">
 
     <fragment
         android:id="@+id/loginFragment"
@@ -15,6 +16,9 @@
             app:destination="@id/registerFragment"
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_loginFragment_to_tempHomeFragment"
+            app:destination="@id/tempHomeFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -68,5 +72,13 @@
             app:argType="string"
             app:nullable="true"
             android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_codeFragment_to_tempHomeFragment"
+            app:destination="@id/tempHomeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/tempHomeFragment"
+        android:name="com.hechim.TempHomeFragment"
+        android:label="fragment_temp_home"
+        tools:layout="@layout/fragment_temp_home" />
 </navigation>

@@ -62,10 +62,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -80,7 +76,28 @@ class MainActivity : AppCompatActivity() {
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         val navController = navHostFragment.navController
+        val inflater = navController.navInflater
+        val graph = inflater.inflate(R.navigation.main_navigation)
         navigationRepository.setController(navController)
+
+        val loggedIn = injectedSharedPref.getBooleanValue(SecureSharedPref.isLoggedInKey)
+
+        if(loggedIn) {
+            graph.setStartDestination(R.id.codeFragment)
+            //navigationRepository.navigateAndRemove(R.id.codeFragment)
+        }
+        else {
+            //first start
+            if(true) {
+                graph.setStartDestination(R.id.onBoardingFragment)
+                //navigationRepository.navigateAndRemove(R.id.onBoardingFragment)
+            }
+            else {
+                graph.setStartDestination(R.id.loginFragment)
+                //navigationRepository.navigateAndRemove(R.id.loginFragment)
+            }
+        }
+        navController.setGraph(graph, intent.extras)
 
 
 

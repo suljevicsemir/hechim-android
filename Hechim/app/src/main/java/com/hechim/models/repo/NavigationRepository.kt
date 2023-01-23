@@ -47,4 +47,8 @@ class NavigationRepository(val context: Context) {
             }
         )
     }
+
+    fun startNavigate(loggedIn: Boolean, firstStart:Boolean) {
+
+    }
 }
