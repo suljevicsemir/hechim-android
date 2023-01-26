@@ -43,6 +43,7 @@ class RegisterFragment : Fragment() {
                 when(it) {
                     is Resource.Success -> {
                         binding.registerSpinner.visibility = View.GONE
+                        findNavController().animatedNavigate(RegisterFragmentDirections.actionRegisterFragmentToCodeFragment())
                     }
                     is Resource.Loading -> {
                         binding.registerSpinner.visibility = View.VISIBLE
@@ -125,9 +126,9 @@ class RegisterFragment : Fragment() {
                 return@setOnClickListener
             }
             authenticationViewModel.register(
-                email = binding.registerEmailField.editText.toString(),
-                password = binding.registerPasswordField.editText.toString(),
-                confirmPassword = binding.registerConfirmPasswordField.editText.toString()
+                email = binding.registerEmailField.editText.text.toString(),
+                password = binding.registerPasswordField.editText.text.toString(),
+                confirmPassword = binding.registerConfirmPasswordField.editText.text.toString(),
             )
         }
 

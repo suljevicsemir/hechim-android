@@ -30,8 +30,16 @@ class AuthenticationViewModel @Inject constructor(
 
     fun register(email: String, password: String, confirmPassword: String) {
         _registerResource.value = Resource.Loading()
+        println("registering with $email $password $confirmPassword")
         viewModelScope.launch {
-            _registerResource.value = authenticationRepository.register(UserRegister(email.trim(), password.trim(), confirmPassword.trim(), email.trim()))
+            _registerResource.value = authenticationRepository.register(
+                UserRegister(email.trim(), password.trim(), confirmPassword.trim(), email.trim()))
+            if(_registerResource.value.data != null) {
+                println(_registerResource.value.data.toString())
+            }
+            else {
+                println(_registerResource.value.message)
+            }
         }
     }
 
