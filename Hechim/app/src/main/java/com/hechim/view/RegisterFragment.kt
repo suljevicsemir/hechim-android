@@ -5,21 +5,28 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputLayout
 import com.hechim.BuildConfig
 import com.hechim.R
 import com.hechim.databinding.FragmentRegisterBinding
+import com.hechim.models.data.Resource
 import com.hechim.utils.Extensions.animatedNavigate
 import com.hechim.utils.Extensions.errorResetListener
 import com.hechim.utils.Extensions.validateInput
 import com.hechim.utils.PasswordValidator
+import com.hechim.view_models.AuthenticationViewModel
+import kotlinx.coroutines.flow.collectLatest
 
 
 class RegisterFragment : Fragment() {
 
     private lateinit var binding: FragmentRegisterBinding
     private val passwordValidator = PasswordValidator()
+
+    private val authenticationViewModel: AuthenticationViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,6 +37,25 @@ class RegisterFragment : Fragment() {
         setHints()
         attachInputListeners()
         buttonListener()
+
+        lifecycleScope.launchWhenCreated {
+            authenticationViewModel.registerResource.collectLatest {
+                when(it) {
+                    is Resource.Success -> {
+                        binding.registerSpinner.visibility = View.GONE
+                    }
+                    is Resource.Loading -> {
+                        binding.registerSpinner.visibility = View.VISIBLE
+                    }
+                    is Resource.Error -> {
+                        binding.registerSpinner.visibility = View.INVISIBLE
+                    }
+                    is Resource.Nothing -> {
+                        binding.registerSpinner.visibility = View.INVISIBLE
+                    }
+                }
+            }
+        }
 
         return binding.root
     }
@@ -98,6 +124,11 @@ class RegisterFragment : Fragment() {
             if(!validateInputs()) {
                 return@setOnClickListener
             }
+            authenticationViewModel.register(
+                email = binding.registerEmailField.editText.toString(),
+                password = binding.registerPasswordField.editText.toString(),
+                confirmPassword = binding.registerConfirmPasswordField.editText.toString()
+            )
         }
 
         binding.signInLabel.setOnClickListener {

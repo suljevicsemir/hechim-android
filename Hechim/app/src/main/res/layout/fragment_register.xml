@@ -11,102 +11,111 @@
        android:layout_marginHorizontal="20dp"
        tools:context="view.RegisterFragment">
 
-<!--      label that leads to sign in screen-->
-      <TextView
-          android:id="@+id/signInLabel"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="@string/register_sign_in"
-          android:clickable="true"
-          android:focusable="true"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          android:padding="12dp"
-          android:drawableEnd="@drawable/ic_arrow_right"
-          android:drawablePadding="8dp"
-          android:background="@drawable/text_button_shape"
-          tools:ignore="UseCompatTextViewDrawableXml" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!--      label that leads to sign in screen-->
+        <TextView
+            android:id="@+id/signInLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/register_sign_in"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:padding="12dp"
+            android:drawableEnd="@drawable/ic_arrow_right"
+            android:drawablePadding="8dp"
+            android:background="@drawable/text_button_shape"
+            tools:ignore="UseCompatTextViewDrawableXml" />
 
-      <ImageView
-          android:id="@+id/appLogo"
-          android:contentDescription="@null"
-          android:layout_width="80dp"
-          android:layout_height="80dp"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          android:layout_marginTop="20dp"
-          app:layout_constraintTop_toBottomOf="@id/signInLabel"
-          />
+        <ImageView
+            android:id="@+id/appLogo"
+            android:contentDescription="@null"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@id/signInLabel"
+            />
 
-      <TextView
-          android:id="@+id/registerHeadline"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="@string/register_headline"
-          android:textSize="18sp"
-          android:layout_marginTop="30dp"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/appLogo"
-          />
+        <TextView
+            android:id="@+id/registerHeadline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/register_headline"
+            android:textSize="18sp"
+            android:layout_marginTop="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appLogo"
+            />
 
+        <include
+            android:id="@+id/registerEmailField"
+            layout="@layout/text_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="40dp"
+            app:layout_constraintTop_toBottomOf="@id/registerHeadline"
+            />
 
-      <include
-          android:id="@+id/registerEmailField"
-          layout="@layout/text_field"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          android:layout_marginTop="40dp"
-          app:layout_constraintTop_toBottomOf="@id/registerHeadline"
-          />
+        <include
+            android:id="@+id/registerPasswordField"
+            layout="@layout/text_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="140dp"
+            app:layout_constraintTop_toBottomOf="@id/registerHeadline"
+            />
 
+        <include
+            android:id="@+id/registerConfirmPasswordField"
+            layout="@layout/text_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="240dp"
+            app:layout_constraintTop_toBottomOf="@id/registerHeadline"
+            />
 
-      <include
-          android:id="@+id/registerPasswordField"
-          layout="@layout/text_field"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          android:layout_marginTop="140dp"
-          app:layout_constraintTop_toBottomOf="@id/registerHeadline"
-          />
+        <TextView
+            android:id="@+id/registerPasswordRequirements"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="30dp"
+            android:textAlignment="center"
+            app:layout_constraintTop_toBottomOf="@id/registerConfirmPasswordField"
+            android:text="@string/register_password_requirements"
+            />
 
-      <include
-          android:id="@+id/registerConfirmPasswordField"
-          layout="@layout/text_field"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          android:layout_marginTop="240dp"
-          app:layout_constraintTop_toBottomOf="@id/registerHeadline"
-          />
+        <include
+            android:id="@+id/registerContinueButton"
+            layout="@layout/app_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="20dp"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-      <TextView
-          android:id="@+id/registerPasswordRequirements"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          android:layout_marginTop="30dp"
-          android:textAlignment="center"
-          app:layout_constraintTop_toBottomOf="@id/registerConfirmPasswordField"
-          android:text="@string/register_password_requirements"
-          />
-
-      <include
-          android:id="@+id/registerContinueButton"
-          layout="@layout/app_button"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintBottom_toBottomOf="parent"
-          android:layout_height="wrap_content"
-          android:layout_width="match_parent"
-          android:layout_marginBottom="20dp"
-          />
+       <include
+           android:id="@+id/registerSpinner"
+           layout="@layout/app_loader"
+           android:layout_height="match_parent"
+           android:layout_width="match_parent"
+       />
 
 
    </androidx.constraintlayout.widget.ConstraintLayout>
