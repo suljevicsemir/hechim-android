@@ -4,10 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hechim.di.SecureSharedPref
 import com.hechim.models.data.Resource
-import com.hechim.models.data.auth.ConfirmEmail
-import com.hechim.models.data.auth.TokenPair
-import com.hechim.models.data.auth.UserLogin
-import com.hechim.models.data.auth.UserRegister
+import com.hechim.models.data.auth.*
 import com.hechim.models.repo.AuthenticationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,8 +19,8 @@ class AuthenticationViewModel @Inject constructor(
     private val secureSharedPref: SecureSharedPref
 ): ViewModel(){
 
-    private val _registerResource: MutableStateFlow<Resource<UserRegister>> = MutableStateFlow(Resource.Nothing())
-    val registerResource: StateFlow<Resource<UserRegister>> = _registerResource.asStateFlow()
+    private val _registerResource: MutableStateFlow<Resource<UserConfirmedRegister>> = MutableStateFlow(Resource.Nothing())
+    val registerResource: StateFlow<Resource<UserConfirmedRegister>> = _registerResource.asStateFlow()
 
     private val _loginResource: MutableStateFlow<Resource<TokenPair>> = MutableStateFlow(Resource.Nothing())
     val loginResource: StateFlow<Resource<TokenPair>> = _loginResource.asStateFlow()

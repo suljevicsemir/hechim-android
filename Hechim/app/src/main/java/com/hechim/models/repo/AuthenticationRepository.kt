@@ -4,10 +4,7 @@ import com.hechim.di.SecureSharedPref
 import com.hechim.interfaces.api.AuthenticationAPI
 import com.hechim.models.data.APIResponse
 import com.hechim.models.data.Resource
-import com.hechim.models.data.auth.ConfirmEmail
-import com.hechim.models.data.auth.TokenPair
-import com.hechim.models.data.auth.UserLogin
-import com.hechim.models.data.auth.UserRegister
+import com.hechim.models.data.auth.*
 import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
 
@@ -16,7 +13,7 @@ class AuthenticationRepository @Inject constructor(
     private val authenticationAPI: AuthenticationAPI,
     private val secureSharedPref: SecureSharedPref
 ){
-    suspend fun register(userRegister: UserRegister): Resource<UserRegister> {
+    suspend fun register(userRegister: UserRegister): Resource<UserConfirmedRegister> {
         val response = try {
             authenticationAPI.register(userRegister)
         }catch (e: Exception) {
