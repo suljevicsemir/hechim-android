@@ -5,26 +5,54 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputLayout
 import com.hechim.BuildConfig
 import com.hechim.R
 import com.hechim.databinding.FragmentLoginBinding
+import com.hechim.models.data.Resource
+import com.hechim.utils.Extensions.animatedNavigate
 import com.hechim.utils.Extensions.errorResetListener
 import com.hechim.utils.Extensions.validateInput
 import com.hechim.utils.PasswordValidator
+import com.hechim.view_models.AuthenticationViewModel
+import kotlinx.coroutines.flow.collectLatest
 
 
 class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
 
     private val passwordValidator = PasswordValidator()
+    private val authenticationViewModel : AuthenticationViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
+
+
+        lifecycleScope.launchWhenCreated {
+            authenticationViewModel.loginResource.collectLatest {
+                when(it) {
+                    is Resource.Success -> {
+                        binding.loginSpinner.visibility = View.GONE
+                        //findNavController().animatedNavigate(LoginFragmentDirections.actionLoginFragmentToTempHomeFragment())
+                    }
+                    is Resource.Error -> {
+                        binding.signUpLabel.visibility = View.INVISIBLE
+                    }
+                    is Resource.Loading -> {
+                        binding.loginSpinner.visibility = View.VISIBLE
+                    }
+                    is Resource.Nothing -> {
+                        binding.loginSpinner.visibility = View.INVISIBLE
+                    }
+                }
+            }
+        }
 
         buildContent()
         buttonListener()
@@ -77,10 +105,16 @@ class LoginFragment : Fragment() {
 
     //validates input and begins registration flow
     private fun buttonListener() {
+        println(BuildConfig.BASE_URL)
         binding.loginContinueButton.button.setOnClickListener {
             if(!validateInputs()) {
                 return@setOnClickListener
             }
+            authenticationViewModel.login(
+                email = binding.loginEmailField.editText.text.toString(),
+                password = binding.loginPasswordField.editText.text.toString()
+            )
+
         }
 
         binding.signUpLabel.setOnClickListener {

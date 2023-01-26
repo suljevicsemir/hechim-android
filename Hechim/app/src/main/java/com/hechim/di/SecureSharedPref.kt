@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
+import com.auth0.android.jwt.Claim
 import com.auth0.android.jwt.JWT
 import com.hechim.models.data.auth.TokenPair
 
@@ -35,7 +36,8 @@ class SecureSharedPref(context: Context) {
 
     fun storeLoginInfo(tokenPair: TokenPair) {
         val jwt = JWT(tokenPair.accessToken)
-        val id = jwt.getClaim("user_id")
+        val id: Claim = jwt.getClaim("nameidentifier")
+        println("id claim is ${id.asInt()}")
         storeIntValue(userId, id.asInt()!!)
         storeStringValue(accessTokenKey, tokenPair.accessToken)
         storeStringValue(refreshTokenKey, tokenPair.refreshToken)

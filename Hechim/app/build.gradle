@@ -68,12 +68,15 @@ android {
             manifestPlaceholders["appLabel"] = "@string/app_dev_name"
             Properties properties = new Properties()
             properties.load(project.rootProject.file('local.properties').newDataInputStream())
+            def baseUrl = properties.getProperty("DEV_BASE_URL")
+            def devApiKey = properties.getProperty("MAPS_DEV_API_KEY")
             manifestPlaceholders["MAPS_API_KEY"] = "${properties.getProperty("MAPS_DEV_API_KEY")}"
             manifestPlaceholders["intentFilterHost"] = "hechimdevelopment"
             buildConfigField "String", "AUTOCOMPLETE_BASE_URL", '"https://maps.googleapis.com/maps/api/place/autocomplete/"'
+            buildConfigField "String", "BASE_URL", "\"$baseUrl\""
 
 
-            def devApiKey = properties.getProperty("MAPS_DEV_API_KEY")
+
             buildConfigField 'String', 'API_KEY', "\"$devApiKey\""
 
             versionCode 4

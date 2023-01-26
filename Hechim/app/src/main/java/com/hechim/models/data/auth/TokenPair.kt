@@ -2,8 +2,8 @@ package com.hechim.models.data.auth
 import com.google.gson.annotations.SerializedName
 
 data class TokenPair(
-    @SerializedName("access")
+    @SerializedName("accessToken")
     val accessToken: String,
-    @SerializedName("refresh")
+    @SerializedName("refreshToken")
     val refreshToken: String
 )

@@ -83,7 +83,7 @@ class MainActivity : AppCompatActivity() {
         val loggedIn = injectedSharedPref.getBooleanValue(SecureSharedPref.isLoggedInKey)
 
         if(loggedIn) {
-            graph.setStartDestination(R.id.codeFragment)
+            graph.setStartDestination(R.id.tempHomeFragment)
             //navigationRepository.navigateAndRemove(R.id.codeFragment)
         }
         else {
