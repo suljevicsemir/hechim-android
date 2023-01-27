@@ -43,7 +43,9 @@ class RegisterFragment : Fragment() {
                 when(it) {
                     is Resource.Success -> {
                         binding.registerSpinner.visibility = View.GONE
-                        findNavController().animatedNavigate(RegisterFragmentDirections.actionRegisterFragmentToCodeFragment())
+                        findNavController().animatedNavigate(RegisterFragmentDirections.actionRegisterFragmentToCodeFragment(
+                            email = binding.registerEmailField.editText.text.toString(),
+                        ))
                     }
                     is Resource.Loading -> {
                         binding.registerSpinner.visibility = View.VISIBLE

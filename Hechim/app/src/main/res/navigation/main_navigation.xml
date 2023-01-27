@@ -60,7 +60,7 @@
         tools:layout="@layout/fragment_permissions" />
     <fragment
         android:id="@+id/codeFragment"
-        android:name="com.hechim.CodeFragment"
+        android:name="com.hechim.view.CodeFragment"
         android:label="fragment_code"
         tools:layout="@layout/fragment_code">
         <argument
@@ -75,6 +75,10 @@
         <action
             android:id="@+id/action_codeFragment_to_tempHomeFragment"
             app:destination="@id/tempHomeFragment" />
+        <argument
+            android:name="dynamicLink"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
     <fragment
         android:id="@+id/tempHomeFragment"

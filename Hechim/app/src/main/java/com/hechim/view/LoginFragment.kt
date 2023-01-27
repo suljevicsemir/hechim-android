@@ -39,7 +39,7 @@ class LoginFragment : Fragment() {
                 when(it) {
                     is Resource.Success -> {
                         binding.loginSpinner.visibility = View.GONE
-                        //findNavController().animatedNavigate(LoginFragmentDirections.actionLoginFragmentToTempHomeFragment())
+                        findNavController().animatedNavigate(LoginFragmentDirections.actionLoginFragmentToTempHomeFragment())
                     }
                     is Resource.Error -> {
                         binding.signUpLabel.visibility = View.INVISIBLE

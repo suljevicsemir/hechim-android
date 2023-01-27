@@ -36,8 +36,7 @@ class SecureSharedPref(context: Context) {
 
     fun storeLoginInfo(tokenPair: TokenPair) {
         val jwt = JWT(tokenPair.accessToken)
-        val id: Claim = jwt.getClaim("nameidentifier")
-        println("id claim is ${id.asInt()}")
+        val id: Claim = jwt.getClaim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
         storeIntValue(userId, id.asInt()!!)
         storeStringValue(accessTokenKey, tokenPair.accessToken)
         storeStringValue(refreshTokenKey, tokenPair.refreshToken)
