@@ -1,55 +1,44 @@
 package com.hechim.models.repo
 
+import android.content.Context
 import com.hechim.di.SecureSharedPref
-import com.hechim.interfaces.api.AuthenticationAPI
-import com.hechim.models.data.APIResponse
+import com.hechim.di.network_module.BaseRepository
 import com.hechim.models.data.Resource
 import com.hechim.models.data.auth.*
-import dagger.hilt.android.scopes.ActivityScoped
+import com.hechim.models.interfaces.api.AuthenticationAPI
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.android.scopes.ActivityRetainedScoped
 import javax.inject.Inject
 
-@ActivityScoped
+@ActivityRetainedScoped
 class AuthenticationRepository @Inject constructor(
     private val authenticationAPI: AuthenticationAPI,
-    private val secureSharedPref: SecureSharedPref
-){
+    private val secureSharedPref: SecureSharedPref,
+    @ApplicationContext applicationContext: Context
+): BaseRepository(){
     suspend fun register(userRegister: UserRegister): Resource<UserConfirmedRegister> {
-        val response = try {
-            authenticationAPI.register(userRegister)
-        }catch (e: Exception) {
-            return Resource.Error(e.message!!)
-        }
-        return Resource.Success(
-            data = response.data
-        )
+        return backendMiddleware { authenticationAPI.register(userRegister) }
     }
 
     suspend fun login(userLogin: UserLogin): Resource<TokenPair>{
-        val response: APIResponse<TokenPair> = try {
+        return backendMiddleware {
             authenticationAPI.login(userLogin)
-        }catch (e: Exception){
-            return Resource.Error("s")
         }
-        return Resource.Success(
-            data = response.data,
-        )
     }
 
-    suspend fun confirmEmail(confirmEmail: ConfirmEmail): Resource<ConfirmEmail>{
-        return try {
+    suspend fun confirmEmail(confirmEmail: ConfirmEmail): Resource<TokenPair>{
+        return backendMiddleware {
             authenticationAPI.confirmEmail(confirmEmail)
-        }catch (e:Exception) {
-            return Resource.Error(e.message!!)
         }
     }
 
     suspend fun refreshToken(tokenPair: TokenPair): Resource<TokenPair>{
-        return try {
+        return backendMiddleware {
             authenticationAPI.refreshToken(tokenPair)
-        }catch (e: Exception) {
-            return Resource.Error(e.message!!)
         }
     }
+
+
 
 
 }

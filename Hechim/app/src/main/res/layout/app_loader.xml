@@ -6,6 +6,11 @@
             name="visibility"
             type="Integer" />
 
+        <variable
+            name="errorVisibility"
+            type="Integer" />
+
+
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,6 +19,9 @@
         android:visibility="@{visibility}"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -25,5 +33,7 @@
             app:indicatorColor="?colorSecondary"
             app:trackColor="?colorPrimary"
             />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

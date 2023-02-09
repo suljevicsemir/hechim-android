@@ -1,10 +1,10 @@
 package com.hechim.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -12,7 +12,7 @@ import androidx.navigation.fragment.navArgs
 import com.hechim.R
 import com.hechim.databinding.FragmentCodeBinding
 import com.hechim.models.data.Resource
-import com.hechim.utils.Extensions.animatedNavigate
+import com.hechim.utils.Extensions.validateInput
 import com.hechim.view_models.AuthenticationViewModel
 import kotlinx.coroutines.flow.collectLatest
 
@@ -36,8 +36,6 @@ class CodeFragment : Fragment() {
                 when(it) {
                     is Resource.Success -> {
                         binding.codeSpinner.visibility = View.GONE
-                        findNavController().animatedNavigate(CodeFragmentDirections.actionCodeFragmentToTempHomeFragment())
-
                     }
                     is Resource.Loading -> {
                         binding.codeSpinner.visibility = View.VISIBLE
@@ -63,6 +61,8 @@ class CodeFragment : Fragment() {
         binding.codeToolbar.onBackPressed = {
             findNavController().popBackStack()
         }
+        binding.registerCodeButton.title = getString(R.string.register_code_button)
+
         if(args.code != 0) {
             binding.registerCodeField.editText.setText(args.code.toString())
         }
@@ -70,12 +70,23 @@ class CodeFragment : Fragment() {
         binding.registerCodeButton.button.setOnClickListener {
 
             //validate input field, must be a 6 digit number
+            val emailValid = binding.registerCodeField.textInputLayout.validateInput(
+                isValid = {
+                    it.length == 6 && it.toIntOrNull() != null
+                },
+                error = getString(R.string.register_code_validation_message)
+            )
+
+            if(!emailValid) {
+                return@setOnClickListener
+            }
 
             //case where flow is not from the dynamic link
             if(!args.dynamicLink && args.email != null) {
                 authenticationViewModel.confirmEmail(
                     code = binding.registerCodeField.editText.text.toString().toInt(),
-                    email = args.email!!
+                    email = args.email!!,
+                    navDirections = CodeFragmentDirections.actionCodeFragmentToTempHomeFragment()
                 )
             }
 

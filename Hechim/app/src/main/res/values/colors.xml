@@ -11,4 +11,6 @@
     <color name="orange_400">#fa6521</color>
     <color name="black_400">#1b1b1b</color>
     <color name="gray_200">#676767</color>
+    <color name="gray_400">#0F1828</color>
+    <color name="orange_200">#FFECDF</color>
 </resources>

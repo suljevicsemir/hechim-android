@@ -1,12 +1,11 @@
 package com.hechim.di.network_module
 
+//import com.hechim.models.repo.AuthenticationRepository
 import android.content.Context
 import com.hechim.BuildConfig
 import com.hechim.di.SecureSharedPref
-import com.hechim.interfaces.api.AuthenticationAPI
+import com.hechim.models.interfaces.api.AuthenticationAPI
 import com.hechim.models.repo.AuthenticationRepository
-//import com.hechim.models.repo.AuthenticationRepository
-import com.hechim.models.repo.NavigationRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,6 +14,7 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.time.Duration
 import javax.inject.Singleton
 
 @Module
@@ -28,6 +28,8 @@ object AuthorizationModule {
     ) : OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(interceptor)
+            .callTimeout(Duration.ofMillis(5000))
+            //.readTimeout(Duration.ofSeconds(5))
             .build()
     }
 
@@ -51,6 +53,12 @@ object AuthorizationModule {
         authenticationAPI: AuthenticationAPI,
         secureSharedPref: SecureSharedPref)
     = AuthenticationRepository(authenticationAPI, secureSharedPref)
+
+    @Singleton
+    @Provides
+    fun provideConnectivityManager(
+        @ApplicationContext context: Context
+    ) = AppConnectivity(context)
 
 
 }

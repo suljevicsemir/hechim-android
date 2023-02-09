@@ -55,4 +55,24 @@
     <string name="register_code_title">Register code</string>
     <string name="register_code_subtitle">Enter the code you\'ve received or click the link in your email.</string>
     <string name="register_code_hint">Your code</string>
+    <string name="register_code_validation_message">Code must be a 6 digit number</string>
+    <string name="register_code_button">Confirm</string>
+    <string name="no_internet_title">No Internet Connection</string>
+    <string name="no_internet_description">Please check your internet connection and try again.</string>
+    <string name="no_internet_button">Try again</string>
+    <string name="unexpected_error_title">Something went wrong</string>
+    <string name="unexpected_error_description">Unexpected error occurred trying to retrieve your data, please try again.</string>
+    <string name="internal_server_error_title">Internal server error</string>
+    <string name="internal_server_error_description">Server side error occurred, try again later. If problem is still happening, contact our customer suppoprt.</string>
+    <string name="unexpected_error_retry">Try again</string>
+    <string name="internal_server_error_retry">Contact Support</string>
+    <string name="io_error_title">Retrieval error</string>
+    <string name="io_error_description">Error occurred trying to retrieve your data, please try again.</string>
+    <string name="io_error_retry">Try again</string>
+    <string name="timeout_error_title">Timeout occurred</string>
+    <string name="timeout_error_description">Request took too long to complete, you might be having problems with your Internet conenction or server is slow to respond. Please try again.</string>
+    <string name="timeout_error_retry">Try again</string>
+    <string name="http_error_title">Error occured</string>
+    <string name="http_error_description">Error occurred retrieving your data, please try again.</string>
+    <string name="http_error_retry">Try again</string>
 </resources>

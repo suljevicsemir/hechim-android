@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:animateLayoutChanges="true">
     <data>
 
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_marginHorizontal="20dp"
+
         android:layout_height="match_parent"
         tools:context="view.LoginFragment">
 
@@ -16,7 +18,7 @@
             android:layout_height="match_parent">
             <LinearLayout
                 android:id="@+id/signUpLabel"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -26,19 +28,19 @@
                 android:padding="12dp"
                 android:background="@drawable/text_button_shape"
                 android:orientation="horizontal">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@null"
-                    android:src="@drawable/ic_arrow_right"
-                    android:rotation="180"
-                    android:layout_marginEnd="8dp"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/login_sign_up"
                     />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/login_sign_up"
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@null"
+                        android:src="@drawable/ic_arrow_right"
+                        android:layout_marginStart="8dp"
                     />
             </LinearLayout>
 
@@ -106,5 +108,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
+
+        <include
+            android:id="@+id/loginErrorContent"
+            layout="@layout/error_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+        />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,10 +1,10 @@
 package com.hechim.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -36,19 +36,28 @@ class LoginFragment : Fragment() {
 
         lifecycleScope.launchWhenCreated {
             authenticationViewModel.loginResource.collectLatest {
+                println(it::class.java)
                 when(it) {
                     is Resource.Success -> {
                         binding.loginSpinner.visibility = View.GONE
-                        findNavController().animatedNavigate(LoginFragmentDirections.actionLoginFragmentToTempHomeFragment())
+                        binding.loginErrorContent.visibility = View.GONE
+                        //findNavController().animatedNavigate(LoginFragmentDirections.actionLoginFragmentToTempHomeFragment())
                     }
                     is Resource.Error -> {
-                        binding.signUpLabel.visibility = View.INVISIBLE
+
+
+                        binding.loginErrorContent.title = it.errorTitle
+                        binding.loginErrorContent.description = it.errorDescription
+                        binding.loginErrorContent.visibility = View.VISIBLE
+
                     }
                     is Resource.Loading -> {
                         binding.loginSpinner.visibility = View.VISIBLE
+                        binding.loginErrorContent.visibility = View.INVISIBLE
                     }
                     is Resource.Nothing -> {
                         binding.loginSpinner.visibility = View.INVISIBLE
+                        binding.loginErrorContent.visibility = View.INVISIBLE
                     }
                 }
             }
@@ -105,20 +114,21 @@ class LoginFragment : Fragment() {
 
     //validates input and begins registration flow
     private fun buttonListener() {
-        println(BuildConfig.BASE_URL)
         binding.loginContinueButton.button.setOnClickListener {
-            if(!validateInputs()) {
-                return@setOnClickListener
-            }
+//            if(!validateInputs()) {
+//                return@setOnClickListener
+//            }
             authenticationViewModel.login(
-                email = binding.loginEmailField.editText.text.toString(),
-                password = binding.loginPasswordField.editText.text.toString()
+                email = "tesst_hechim1@mailinator.com",//binding.loginEmailField.editText.text.toString(),
+                password = "Hechim123*"//binding.loginPasswordField.editText.text.toString()
             )
 
         }
 
         binding.signUpLabel.setOnClickListener {
-            findNavController().popBackStack()
+            findNavController().animatedNavigate(
+                LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
+            )
         }
     }
 

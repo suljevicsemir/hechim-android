@@ -1,36 +1,40 @@
 package com.hechim
 
-import android.app.Notification
+//import com.hechim.models.repo.ProtoRepository
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
-import android.graphics.Color
-import android.media.session.MediaSession
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.RemoteViews
-import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.view.ViewCompat
-import androidx.navigation.findNavController
+import androidx.datastore.core.DataStore
+import androidx.datastore.dataStore
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
 import com.hechim.databinding.ActivityMainBinding
+import com.hechim.dev.AppSettings
 import com.hechim.di.SecureSharedPref
 import com.hechim.models.local.AppLocale
+import com.hechim.models.repo.AppSettingsSerializer
 import com.hechim.models.repo.NavigationRepository
-import com.hechim.services.TestForeground
 import com.hechim.utils.Extensions.animatedNavigate
 import com.hechim.view.OnBoardingFragmentDirections
-import com.hechim.view.RegisterFragmentDirections
+import com.hechim.view_models.AppSettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import javax.inject.Inject
+
+
+private val Context.userPreferencesStore: DataStore<AppSettings> by dataStore(
+    fileName = "proto_data_store",
+    serializer = AppSettingsSerializer
+)
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -40,6 +44,10 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var navigationRepository: NavigationRepository
+
+    private lateinit var appSettingsViewModel: AppSettingsViewModel
+
+
 
     override fun attachBaseContext(newBase: Context?) {
         val secureSharedPref = SecureSharedPref(newBase!!)
@@ -69,57 +77,76 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        appSettingsViewModel = ViewModelProvider(this)[AppSettingsViewModel::class.java]
+
+
+        var finishedOnBoarding = false
+
+        val value = appSettingsViewModel.settings.value
+
+
+
+        appSettingsViewModel.settings.observe(this) {
+            finishedOnBoarding = it.finishedOnBoarding
+
+            val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+            val navController = navHostFragment.navController
+            val inflater = navController.navInflater
+            val graph = inflater.inflate(R.navigation.main_navigation)
+            navigationRepository.setController(navController)
+
+            val loggedIn = injectedSharedPref.getBooleanValue(SecureSharedPref.isLoggedInKey)
+
+            if(loggedIn) {
+                graph.setStartDestination(R.id.loginFragment)
+            }
+            else {
+                //first start
+                if(!finishedOnBoarding) {
+                    graph.setStartDestination(R.id.onBoardingFragment)
+                    //navigationRepository.navigateAndRemove(R.id.onBoardingFragment)
+                }
+                else {
+                    graph.setStartDestination(R.id.loginFragment)
+                    //navigationRepository.navigateAndRemove(R.id.loginFragment)
+                }
+            }
+            //graph.setStartDestination(R.id.registerFragment)
+            navController.setGraph(graph, intent.extras)
+
+            FirebaseDynamicLinks.getInstance().getDynamicLink(intent).addOnSuccessListener {
+                if(it != null) {
+                    val uri = it.link
+                    if(uri != null) {
+
+                        val s = uri.getQueryParameter("curPage")
+                        val code = uri.getQueryParameter("code")!!.toInt()
+                        val email = uri.getQueryParameter("email")!!.toString()
+                        navHostFragment.navController.animatedNavigate(
+                            OnBoardingFragmentDirections.actionOnBoardingFragmentToCodeFragment(
+                                code = code,
+                                email = email
+                            )
+                        )
+                    }
+                }
+            }
+
+            appSettingsViewModel.settings.removeObservers(this)
+        }
+
 
         supportActionBar?.hide();
 
         createNotification()
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
-        val navController = navHostFragment.navController
-        val inflater = navController.navInflater
-        val graph = inflater.inflate(R.navigation.main_navigation)
-        navigationRepository.setController(navController)
-
-        val loggedIn = injectedSharedPref.getBooleanValue(SecureSharedPref.isLoggedInKey)
-
-        if(loggedIn) {
-            graph.setStartDestination(R.id.tempHomeFragment)
-            //navigationRepository.navigateAndRemove(R.id.codeFragment)
-        }
-        else {
-            //first start
-            if(true) {
-                graph.setStartDestination(R.id.onBoardingFragment)
-                //navigationRepository.navigateAndRemove(R.id.onBoardingFragment)
-            }
-            else {
-                graph.setStartDestination(R.id.loginFragment)
-                //navigationRepository.navigateAndRemove(R.id.loginFragment)
-            }
-        }
-        navController.setGraph(graph, intent.extras)
 
 
 
 
 
-        FirebaseDynamicLinks.getInstance().getDynamicLink(intent).addOnSuccessListener {
-            if(it != null) {
-                val uri = it.link
-                if(uri != null) {
 
-                    val s = uri.getQueryParameter("curPage")
-                    val code = uri.getQueryParameter("code")!!.toInt()
-                    val email = uri.getQueryParameter("email")!!.toString()
-                    navHostFragment.navController.animatedNavigate(
-                        OnBoardingFragmentDirections.actionOnBoardingFragmentToCodeFragment(
-                            code = code,
-                            email = email
-                        )
-                    )
-                }
-            }
-        }
+
 
 
     }

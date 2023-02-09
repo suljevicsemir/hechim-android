@@ -1,25 +1,17 @@
 package com.hechim.view
 
 import android.Manifest
-import android.app.NotificationManager
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.PowerManager
-import android.provider.Settings
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.getSystemService
-import androidx.core.view.size
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
@@ -29,6 +21,7 @@ import com.hechim.databinding.FragmentOnBoardingBinding
 import com.hechim.models.local.OnBoardingItem
 import com.hechim.services.TestForeground
 import com.hechim.utils.Extensions.animatedNavigate
+import com.hechim.view_models.AppSettingsViewModel
 import com.vmadalin.easypermissions.dialogs.SettingsDialog
 
 
@@ -36,6 +29,8 @@ class OnBoardingFragment : Fragment() {
 
     private lateinit var binding: FragmentOnBoardingBinding
     private var savedViewInstance: View? = null
+
+    private val appSettingsViewModel: AppSettingsViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -92,11 +87,10 @@ class OnBoardingFragment : Fragment() {
     }
 
     private fun buttonListener() {
-
-        val button = binding.onBoardingButton
         val recyclerView = binding.onboardingViewPager
         binding.onBoardingButton.button.setOnClickListener {
             if(recyclerView.currentItem == 3) {
+                appSettingsViewModel.updateOnBoarding(true)
                 findNavController().animatedNavigate(OnBoardingFragmentDirections.actionOnBoardingFragmentToLanguageSelectionFragment())
             }
             else {

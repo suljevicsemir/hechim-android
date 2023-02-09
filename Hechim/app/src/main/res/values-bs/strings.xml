@@ -42,4 +42,24 @@
     <string name="register_code_title">Registracioni kod</string>
     <string name="register_code_subtitle">Unesite kod koji smo Vam poslali ili kliknite na dugme u mailu koji ste dobili.</string>
     <string name="register_code_hint">Unesite kod ovdje</string>
+    <string name="register_code_validation_message">Kod mora biti 6-znamenkasti broj</string>
+    <string name="register_code_button">Potvrdi</string>
+    <string name="no_internet_title">Nemate Internet konekcije</string>
+    <string name="no_internet_description">Provjerite Internet koneckiju i pokusajte ponovo.</string>
+    <string name="no_internet_button">Pokusajte ponovo</string>
+    <string name="unexpected_error_title">"Neocekivani problem "</string>
+    <string name="unexpected_error_description">Neockivani problem u dohvacanju Vasih podataka, molimo pokusajte ponovo.</string>
+    <string name="internal_server_error_title">Problem na serveru</string>
+    <string name="internal_server_error_description">Problem na serveru, molimo pokusajte kasnije. Ako se problem bude desavao ponovo, kontaktirajte korisnicku podrsku.</string>
+    <string name="unexpected_error_retry">Pokusajte ponovo</string>
+    <string name="internal_server_error_retry">Kontaktirajte podrsku</string>
+    <string name="io_error_title">Problem u dohvatanju podataka</string>
+    <string name="io_error_description">Problem pri dohvatanju podataka, molimo pokusajte ponoov.</string>
+    <string name="io_error_retry">Pokusajte ponovo</string>
+    <string name="timeout_error_title">Predugo trajanje</string>
+    <string name="timeout_error_description">Odgovor od servera je trajao predugo. Mozda imate problema s Internet konekcijom ili imamo problem na strani servera. Molimo pokusajte ponovo.</string>
+    <string name="timeout_error_retry">Pokusajte ponovo</string>
+    <string name="http_error_title">Greska</string>
+    <string name="http_error_description">Problem pri dohvatanju podataka, molimo pokusajte ponovo.</string>
+    <string name="http_error_retry">Pokusajte ponovo</string>
 </resources>
