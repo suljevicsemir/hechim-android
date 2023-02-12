@@ -3,7 +3,6 @@ package com.hechim.di.network_module
 //import com.hechim.models.repo.AuthenticationRepository
 import android.content.Context
 import com.hechim.BuildConfig
-import com.hechim.di.SecureSharedPref
 import com.hechim.models.interfaces.api.AuthenticationAPI
 import com.hechim.models.repo.AuthenticationRepository
 import dagger.Module
@@ -49,10 +48,7 @@ object AuthorizationModule {
 
     @Singleton
     @Provides
-    fun provideAuthenticationRepository(
-        authenticationAPI: AuthenticationAPI,
-        secureSharedPref: SecureSharedPref)
-    = AuthenticationRepository(authenticationAPI, secureSharedPref)
+    fun provideAuthenticationRepository(authenticationAPI: AuthenticationAPI) = AuthenticationRepository(authenticationAPI)
 
     @Singleton
     @Provides

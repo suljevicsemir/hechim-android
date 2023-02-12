@@ -39,17 +39,11 @@ class AuthenticationViewModel @Inject constructor(
         viewModelScope.launch {
             _registerResource.value = authenticationRepository.register(
                 UserRegister(email.trim(), password.trim(), confirmPassword.trim(), email.trim()))
-            if(_registerResource.value.data != null) {
-                println(_registerResource.value.data.toString())
-            }
-            else {
-                println(_registerResource.value.errorDescription)
-            }
         }
     }
 
     fun login(email: String, password: String) {
-        _loginResource.value = Resource.Loading("")
+        _loginResource.value = Resource.Loading()
 
         viewModelScope.launch {
             delay(1000)
@@ -63,7 +57,7 @@ class AuthenticationViewModel @Inject constructor(
     }
 
     fun confirmEmail(code: Int, email: String, navDirections: NavDirections) {
-        _confirmEmailResource.value = Resource.Loading("null")
+        _confirmEmailResource.value = Resource.Loading()
         viewModelScope.launch {
             val response = authenticationRepository.confirmEmail(ConfirmEmail(code, email))
             if(response is Resource.Success) {

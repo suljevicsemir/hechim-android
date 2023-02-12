@@ -46,8 +46,8 @@ class LoginFragment : Fragment() {
                     is Resource.Error -> {
 
 
-                        binding.loginErrorContent.title = it.errorTitle
-                        binding.loginErrorContent.description = it.errorDescription
+//                        binding.loginErrorContent.title = it.errorTitle
+//                        binding.loginErrorContent.description = it.errorDescription
                         binding.loginErrorContent.visibility = View.VISIBLE
 
                     }

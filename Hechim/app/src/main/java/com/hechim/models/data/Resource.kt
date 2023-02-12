@@ -7,7 +7,7 @@ sealed class Resource<T>(
     ) {
     class Success<T>(data: T) : Resource<T>(data = data)
     class Error<T>(errorSpecification: ErrorSpecification) : Resource<T>(errorSpecification = errorSpecification)
-    class Loading<T>(loaderSpecification: LoaderSpecification) : Resource<T>(loaderSpecification = loaderSpecification)
+    class Loading<T>(loaderSpecification: LoaderSpecification? = null) : Resource<T>(loaderSpecification = loaderSpecification)
     class Nothing<T>(): Resource<T>()
 }
 
