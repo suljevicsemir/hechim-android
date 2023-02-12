@@ -12,6 +12,7 @@ import android.widget.RemoteViews
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.datastore.core.DataStore
 import androidx.datastore.dataStore
 import androidx.lifecycle.ViewModelProvider
@@ -73,9 +74,16 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        installSplashScreen().apply {
+
+        }
 
 
         setContentView(R.layout.activity_main)
+
+
+
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         appSettingsViewModel = ViewModelProvider(this)[AppSettingsViewModel::class.java]
 

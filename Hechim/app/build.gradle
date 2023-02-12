@@ -78,8 +78,8 @@ android {
 
             buildConfigField 'String', 'API_KEY', "\"$devApiKey\""
 
-            versionCode 4
-            versionName "0.0.1-demo4"
+            versionCode 5
+            versionName "0.0.1-demo5-splashcreen"
 
             signingConfig signingConfigs.development
         }
@@ -195,7 +195,13 @@ dependencies {
 
 
 
+
     implementation "androidx.datastore:datastore-preferences:1.0.0"
+
+
+    //Splash screenss
+    //sad
+    implementation 'androidx.core:core-splashscreen:1.0.0'
 
 
 }
