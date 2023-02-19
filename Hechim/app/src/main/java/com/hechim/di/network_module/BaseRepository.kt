@@ -25,6 +25,7 @@ open class BaseRepository {
         //the error is recognized by the Fragment's callback and error content
         //is displayed
         catch (e: NoInternetException) {
+            println("No internet caught")
             return Resource.Error(
                 errorSpecification = ErrorSpecification(
                     useStringResource = true,

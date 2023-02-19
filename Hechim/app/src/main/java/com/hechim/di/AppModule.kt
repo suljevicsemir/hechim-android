@@ -5,6 +5,7 @@ package com.hechim.di
 import android.content.Context
 import androidx.datastore.core.DataStore
 import com.hechim.dev.AppSettings
+import com.hechim.di.network_module.AppConnectivity
 import com.hechim.models.repo.AppSettingsRepository
 import com.hechim.models.repo.NavigationRepository
 import com.hechim.utils.PasswordValidator
@@ -46,6 +47,10 @@ object AppModule {
     @Singleton
     @Provides
     fun provideAppSettingsRepository(dataStore: DataStore<AppSettings>) = AppSettingsRepository(dataStore = dataStore)
+
+    @Singleton
+    @Provides
+    fun provideAppConnectivity(@ApplicationContext context: Context) = AppConnectivity(context)
 
 
 

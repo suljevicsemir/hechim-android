@@ -18,9 +18,10 @@
 
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/errorContentContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="@{visibility}"
+        android:visibility="invisible"
         android:paddingHorizontal="20dp"
         android:background="@color/orange_200"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -42,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="40sp"
-            android:text="@{title}"
+            android:text="title"
             android:textColor="?colorOnPrimary"
             android:fontFamily="@font/roboto_black"
             app:layout_constraintStart_toStartOf="parent"
@@ -56,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="26sp"
-            android:text="@{description}"
+            android:text="description"
             android:textColor="?colorOnPrimary"
             android:fontFamily="@font/roboto_regular"
             app:layout_constraintStart_toStartOf="parent"

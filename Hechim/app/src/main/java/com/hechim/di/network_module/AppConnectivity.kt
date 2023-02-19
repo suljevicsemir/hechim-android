@@ -6,10 +6,10 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.android.scopes.ActivityRetainedScoped
+import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
 
-@ActivityRetainedScoped
+@ActivityScoped
 class AppConnectivity @Inject constructor(
     @ApplicationContext context: Context
 ){

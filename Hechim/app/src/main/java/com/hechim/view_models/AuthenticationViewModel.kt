@@ -10,7 +10,6 @@ import com.hechim.models.data.auth.*
 import com.hechim.models.repo.AuthenticationRepository
 import com.hechim.models.repo.NavigationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -46,7 +45,6 @@ class AuthenticationViewModel @Inject constructor(
         _loginResource.value = Resource.Loading()
 
         viewModelScope.launch {
-            delay(1000)
             val result = authenticationRepository.login(UserLogin(email.trim(), password.trim()))
             if(result is Resource.Success) {
                 secureSharedPref.storeLoginInfo(result.data!!)

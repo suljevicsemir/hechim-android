@@ -16,6 +16,7 @@ class AuthenticationRepository @Inject constructor(
     }
 
     suspend fun login(userLogin: UserLogin): Resource<TokenPair>{
+        println("LOGIN METHOD INVOKED")
         return backendMiddleware { authenticationAPI.login(userLogin) }
     }
 

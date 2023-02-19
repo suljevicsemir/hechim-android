@@ -20,10 +20,6 @@ class ApiInterceptor @Inject constructor(
     private val appConnectivity: AppConnectivity
 ): Interceptor{
 
-
-
-
-
     override fun intercept(chain: Interceptor.Chain): Response {
         if(!appConnectivity.available) {
             throw NoInternetException(

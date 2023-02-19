@@ -6,9 +6,7 @@
             name="visibility"
             type="Integer" />
 
-        <variable
-            name="errorVisibility"
-            type="Integer" />
+
 
 
     </data>

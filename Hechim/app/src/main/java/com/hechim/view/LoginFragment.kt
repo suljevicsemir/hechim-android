@@ -32,23 +32,25 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
+        binding.loginErrorContent.visibility = View.INVISIBLE
 
 
-        lifecycleScope.launchWhenCreated {
+        lifecycleScope.launchWhenStarted {
             authenticationViewModel.loginResource.collectLatest {
-                println(it::class.java)
                 when(it) {
                     is Resource.Success -> {
                         binding.loginSpinner.visibility = View.GONE
+                        binding.loginErrorContent.errorContentContainer.visibility = View.INVISIBLE
                         binding.loginErrorContent.visibility = View.GONE
                         //findNavController().animatedNavigate(LoginFragmentDirections.actionLoginFragmentToTempHomeFragment())
                     }
                     is Resource.Error -> {
 
-
+                        binding.loginErrorContent.errorContentContainer.visibility = View.VISIBLE
 //                        binding.loginErrorContent.title = it.errorTitle
 //                        binding.loginErrorContent.description = it.errorDescription
                         binding.loginErrorContent.visibility = View.VISIBLE
+                        binding.loginSpinner.visibility = View.INVISIBLE
 
                     }
                     is Resource.Loading -> {
@@ -119,7 +121,7 @@ class LoginFragment : Fragment() {
 //                return@setOnClickListener
 //            }
             authenticationViewModel.login(
-                email = "tesst_hechim1@mailinator.com",//binding.loginEmailField.editText.text.toString(),
+                email = "tesst_hec2him1@mailinator.com",//binding.loginEmailField.editText.text.toString(),
                 password = "Hechim123*"//binding.loginPasswordField.editText.text.toString()
             )
 

@@ -1,14 +1,12 @@
 package com.hechim.di.network_module
 
 //import com.hechim.models.repo.AuthenticationRepository
-import android.content.Context
 import com.hechim.BuildConfig
 import com.hechim.models.interfaces.api.AuthenticationAPI
 import com.hechim.models.repo.AuthenticationRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -50,11 +48,7 @@ object AuthorizationModule {
     @Provides
     fun provideAuthenticationRepository(authenticationAPI: AuthenticationAPI) = AuthenticationRepository(authenticationAPI)
 
-    @Singleton
-    @Provides
-    fun provideConnectivityManager(
-        @ApplicationContext context: Context
-    ) = AppConnectivity(context)
+
 
 
 }
