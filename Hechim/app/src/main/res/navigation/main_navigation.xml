@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
 
-    app:startDestination="@id/tempHomeFragment">
+    app:startDestination="@id/settingsFragment">
 
     <fragment
         android:id="@+id/loginFragment"
@@ -85,4 +85,18 @@
         android:name="com.hechim.TempHomeFragment"
         android:label="fragment_temp_home"
         tools:layout="@layout/fragment_temp_home" />
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.hechim.view.ChangePasswordFragment"
+        android:label="fragment_change_password"
+        tools:layout="@layout/fragment_change_password" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.hechim.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settingsFragment_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment" />
+    </fragment>
 </navigation>

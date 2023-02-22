@@ -105,21 +105,21 @@ class MainActivity : AppCompatActivity() {
 
             val loggedIn = injectedSharedPref.getBooleanValue(SecureSharedPref.isLoggedInKey)
 
-            if(loggedIn) {
-                graph.setStartDestination(R.id.loginFragment)
-            }
-            else {
-                //first start
-                if(!finishedOnBoarding) {
-                    graph.setStartDestination(R.id.onBoardingFragment)
-                    //navigationRepository.navigateAndRemove(R.id.onBoardingFragment)
-                }
-                else {
-                    graph.setStartDestination(R.id.loginFragment)
-                    //navigationRepository.navigateAndRemove(R.id.loginFragment)
-                }
-            }
-            //graph.setStartDestination(R.id.registerFragment)
+//            if(loggedIn) {
+//                graph.setStartDestination(R.id.loginFragment)
+//            }
+//            else {
+//                //first start
+//                if(!finishedOnBoarding) {
+//                    graph.setStartDestination(R.id.onBoardingFragment)
+//                    //navigationRepository.navigateAndRemove(R.id.onBoardingFragment)
+//                }
+//                else {
+//                    graph.setStartDestination(R.id.loginFragment)
+//                    //navigationRepository.navigateAndRemove(R.id.loginFragment)
+//                }
+//            }
+//            //graph.setStartDestination(R.id.registerFragment)
             navController.setGraph(graph, intent.extras)
 
             FirebaseDynamicLinks.getInstance().getDynamicLink(intent).addOnSuccessListener {

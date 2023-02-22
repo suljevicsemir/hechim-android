@@ -18,8 +18,6 @@ import androidx.navigation.navOptions
 import com.google.android.material.textfield.TextInputLayout
 import com.hechim.R
 import com.hechim.models.local.AlertDialogConfig
-import com.hechim.utils.Extensions.openAppSystemSettings
-import com.hechim.utils.Extensions.themeColor
 
 
 object Extensions {
@@ -130,6 +128,36 @@ object Extensions {
         }
 
         alertDialog?.show()
+    }
+
+    /**
+     * Sets focus listener on a TextInputLayout
+     * Manages label and hint for text field, based on text field focus
+     * Manages error, error is removed whenever user inputs text
+     */
+    fun TextInputLayout.setFocusListener(label: String, hint: String) {
+        this.isHelperTextEnabled = true
+        //set hint upon listener attach
+        //because InputLayouts get their hints and labels from View Binding
+        //and not string resource from layouts, it's necessary to set hint before the initial
+        //focus event (hint/label won't be displayed until layout is tapped)
+        this.hint = hint
+
+        this.editText!!.setOnFocusChangeListener { _, hasFocus ->
+            if(hasFocus) {
+                this.hint = label
+            }
+            //this keeps hint as label value when field doesn't have focus and has text
+            //otherwise hint will be displayed about layout as soon focus is lost
+            else if(editText!!.text.toString().isNotEmpty()) {
+                this.hint = label
+            }
+            else {
+                this.hint = hint
+            }
+        }
+
+        this.errorResetListener()
     }
 
 }

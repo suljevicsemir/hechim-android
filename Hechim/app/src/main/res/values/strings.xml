@@ -75,4 +75,14 @@
     <string name="http_error_title">Error occured</string>
     <string name="http_error_description">Error occurred retrieving your data, please try again.</string>
     <string name="http_error_retry">Try again</string>
+    <string name="change_pass_old_pass_hint">Enter your old password</string>
+    <string name="change_pass_old_pass_label">Old password</string>
+    <string name="change_pass_new_pass_hint">Enter new password</string>
+    <string name="change_pass_new_pass_label">New password</string>
+    <string name="change_pass_confirm_pass_hint">Repeat new password</string>
+    <string name="change_pass_confirm_pass_label">Confirm password</string>
+    <string name="change_pass_length">Minimum 8 characters, maximum 15</string>
+    <string name="change_pass_number">At least one number</string>
+    <string name="change_pass_character">At least one special character</string>
+    <string name="change_pass_uppercase">At least one uppercase letter</string>
 </resources>

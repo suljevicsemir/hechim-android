@@ -13,11 +13,12 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayoutStyle"
             android:id="@+id/textInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@{hint}"
-            style="@style/TextInputLayoutStyle"
+
+
             app:endIconDrawable="@null"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

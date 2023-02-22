@@ -62,4 +62,14 @@
     <string name="http_error_title">Greska</string>
     <string name="http_error_description">Problem pri dohvatanju podataka, molimo pokusajte ponovo.</string>
     <string name="http_error_retry">Pokusajte ponovo</string>
+    <string name="change_pass_old_pass_hint">Unesite trenutnu sifru</string>
+    <string name="change_pass_old_pass_label">Trenutna sifra</string>
+    <string name="change_pass_new_pass_hint">Unesite novu sifru</string>
+    <string name="change_pass_new_pass_label">Nova sifra</string>
+    <string name="change_pass_confirm_pass_hint">Potvrdite unos sifre</string>
+    <string name="change_pass_confirm_pass_label">Potvrdite sifru</string>
+    <string name="change_pass_length">Minimum 8 karaktera, maksimalno 15</string>
+    <string name="change_pass_number">Najmanje jedan broj</string>
+    <string name="change_pass_character">Najmanje jedan specijalni karakter</string>
+    <string name="change_pass_uppercase">Najmanje jedno veliko slovo</string>
 </resources>
