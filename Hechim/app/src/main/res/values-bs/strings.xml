@@ -72,4 +72,5 @@
     <string name="change_pass_number">Najmanje jedan broj</string>
     <string name="change_pass_character">Najmanje jedan specijalni karakter</string>
     <string name="change_pass_uppercase">Najmanje jedno veliko slovo</string>
+    <string name="change_password_title">Promjena sifre</string>
 </resources>

@@ -85,4 +85,5 @@
     <string name="change_pass_number">At least one number</string>
     <string name="change_pass_character">At least one special character</string>
     <string name="change_pass_uppercase">At least one uppercase letter</string>
+    <string name="change_password_title">Change password</string>
 </resources>

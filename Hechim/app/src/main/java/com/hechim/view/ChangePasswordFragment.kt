@@ -27,7 +27,7 @@ class ChangePasswordFragment : Fragment() {
         }
 
         binding = FragmentChangePasswordBinding.inflate(inflater, container, false)
-        binding.changePassToolbar.title = "Change pass"
+        binding.changePassToolbar.title = getString(R.string.change_password_title)
         binding.changePassToolbar.onBackPressed = {
             findNavController().popBackStack()
         }
