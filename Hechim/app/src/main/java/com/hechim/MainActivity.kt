@@ -9,13 +9,17 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.widget.RemoteViews
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.datastore.core.DataStore
 import androidx.datastore.dataStore
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.NavHostFragment
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
 import com.hechim.databinding.ActivityMainBinding
@@ -28,8 +32,24 @@ import com.hechim.utils.Extensions.animatedNavigate
 import com.hechim.view.OnBoardingFragmentDirections
 import com.hechim.view_models.AppSettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
+
+class LoadingViewModel:ViewModel() {
+    private val _isLoading = MutableStateFlow(true)
+    val isLoading = _isLoading.asStateFlow()
+
+    init {
+        viewModelScope.launch {
+            delay(3000)
+            _isLoading.value = false
+        }
+    }
+}
 
 
 private val Context.userPreferencesStore: DataStore<AppSettings> by dataStore(
@@ -47,6 +67,9 @@ class MainActivity : AppCompatActivity() {
     lateinit var navigationRepository: NavigationRepository
 
     private lateinit var appSettingsViewModel: AppSettingsViewModel
+
+
+    private val loadingViewModel: LoadingViewModel by viewModels()
 
 
 
@@ -75,7 +98,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         installSplashScreen().apply {
-
+            setKeepOnScreenCondition {
+                loadingViewModel.isLoading.value
+            }
         }
 
 

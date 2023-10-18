@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">@color/orange_400</item>
+        <item name="windowSplashScreenBackground">@color/demo_teal</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash</item>
         <item name="windowSplashScreenAnimationDuration">2000</item>
+        <item name="android:windowSplashScreenBrandingImage">@drawable/demo</item>
+
         <item name="postSplashScreenTheme">@style/Theme.Hechim</item>
-        
+
     </style>
 </resources>

@@ -3,9 +3,11 @@ package com.hechim.models.interfaces.api
 
 import com.hechim.models.data.APIResponse
 import com.hechim.models.data.auth.*
+import com.hechim.utils.HttpHeaders
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface AuthenticationAPI {
@@ -20,6 +22,9 @@ interface AuthenticationAPI {
 
     @POST(value = "Authentication/refresh-token")
     suspend fun refreshToken(@Body tokenPair: TokenPair): Response<APIResponse<TokenPair>>
+
+    @POST(value = "authentication/change-password")
+    suspend fun changePassword(@Body changePassword: ChangePassword, @Header(HttpHeaders.authorizationHeader) token: String?)
 
     @GET("Utility/10sec-timeout")
     suspend fun produceTimeout()
